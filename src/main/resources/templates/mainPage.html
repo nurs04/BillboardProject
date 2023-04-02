@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="/js/main.js"></script>
+    <link rel="stylesheet" href="/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
+    <title>Happy Clients</title>
+</head>
+<body>
+    <header class="sidebar">
+        <div class="container">
+            <div class="sidebar_items">
+                <h2><span>Happy</span> Clients</h2>
+                <div class="sidebar_nav">
+                    <ul class="nav">
+                        <li class="homepage">
+                            <a href="mainPage.html" class="homepage_a">
+                                Overwiew
+                            </a>
+                        </li>
+                        <li>
+                            <a href="profile.html">
+                                My Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Orders
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="JavaScript:void(0)"
+                               onclick="singOutForm.submit()">Sign
+                                out</a>
+                            <form th:action="@{'/signOut'}" method="post" id="singOutForm"></form>
+                        </li>
+                    </ul>
+                    <div class="shops">
+                        <div class="enter">
+                            <a th:text="${#authentication.getPrincipal().name} + ' ' + ${#authentication.getPrincipal().surname}"></a>
+                        </div>
+                        <div class="cart">
+                            <a href="#">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span>Cart</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="header">
+        <div class="container">
+            <div class="log">
+                <div class="welcome">
+                    <h1>Welcome to Billboard Ads Marketplace</h1>
+                </div>
+            </div>
+            <hr>
+            <div class="banner">
+                <div class="banner_info">
+                    <div class="banner_text">
+                        <h2>Outdoor advertising on billboards Almaty</h2>
+                        <a href="">View the list</a>
+                        <p>More flexibility, freedom and choice!</p>
+                    </div>
+                    <img src="img/banner.jpg" alt="#">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="items">
+        <div class="container">
+            <h1>Billboards & Pricing</h1>
+            <div class="cards">
+                <div class="cards_item">
+                    <div class="img_banner">
+                        <img src="img/banner1.png" alt="#">
+                        <a href="#">Featured</a>
+                        <p>Per month 400$</p>
+                    </div>
+                    <div class="banner_detail">
+                        <div class="banner_textD">
+                            <h3>Intersection of Abay-Sain streets</h3>
+                            <p>City: Almaty</p>
+                            <p>Type: one - sided</p>
+                            <p>Size: 5000x2900 mm</p>
+                        </div>
+                        <div class="banner_btn">
+                            <a href="#">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="cards_item">
+                    <div class="img_banner">
+                        <img src="img/banner2.png" alt="#">
+                        <a href="#">Featured</a>
+                        <p>Per month 400$</p>
+                    </div>
+                    <div class="banner_detail">
+                        <div class="banner_textD">
+                            <h3>Intersection of Zhandosov-Alfarabi streets</h3>
+                            <p>City: Almaty</p>
+                            <p>Type: one - sided</p>
+                            <p>Size: 6200x3100 mm</p>
+                        </div>
+                        <div class="banner_btn">
+                            <a href="#">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="cards_item">
+                    <div class="img_banner">
+                        <img src="img/banner3.png" alt="#">
+                        <a href="#">Featured</a>
+                        <p>Per month 400$</p>
+                    </div>
+                    <div class="banner_detail">
+                        <div class="banner_textD">
+                            <h3>Intersection of Zhandosov-Alfarabi streets</h3>
+                            <p>City: Almaty</p>
+                            <p>Type: one - sided</p>
+                            <p>Size: 5000x2800 mm</p>
+                        </div>
+                        <div class="banner_btn">
+                            <a href="#">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="more_bilboards" id="#more_bilboards">
+                <a href="#">More bilboards</a>            
+            </div>
+    </section>
+    <section class="about_com" id="about_com">
+        <div class="container">
+            <div class="about_items">
+                <div class="text_about">
+                    <h1>About us</h1>
+                    <p> <span>We</span> have been helping businesses across the country get their message out to the world. With a focus on quality, affordability, and exceptional customer service, we've built a reputation as a leader in the billboard industry.</p>
+                    <p>We believe that outdoor advertising should be accessible to businesses of all sizes. That's why we offer flexible pricing and financing options, as well as a wide range of design services to help bring your vision to life.</P>
+                </div>
+                <div class="grid_img">
+                    <img src="img/banner_grid3.png" alt="#">
+                    <div class="group1_grid">
+                        <img src="img/banner_grid1.jpg" alt="#">
+                        <img src="img/banner_grid2.jpg" alt="#">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="phone_section">
+        <h1>Do you have question?</h1>
+        <div class="phone_call">
+            <div class="contact_us">
+                <h2>Contact Us</h2>
+                <div class="info">
+                    <input type="email" placeholder="Email" required= "required">
+                    <input type="password" placeholder="Password" minlength="8" required= "required">
+                    <textarea  placeholder="Message..."></textarea>
+                </div>
+                <div class="btn">
+                    <a href="#">Send</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <div class="social">
+                <a href="#">
+                    <img src="img/facebook.png" alt="#">
+                </a>
+                <a href="#">
+                    <img src="img/instagram.png" alt="#">
+                </a>
+                <a href="#">
+                    <img src="img/telegram.png" alt="#">
+                </a>
+                <a href="#">
+                    <img src="img/whatsapp.png" alt="#">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+</body>

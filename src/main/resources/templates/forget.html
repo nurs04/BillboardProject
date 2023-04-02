@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="/css/forget.css">
+    <title>Reset password</title>
+</head>
+<body>
+    <div class="logIn">
+        <div class="logIn_items">
+            <div class="logIn_text">
+                <h1>Password reset</h1>
+                <a th:href="@{'/auth/'}">Enter your email and a new password will be sent to it. If everything is ready, <span>you can log in to the site</a>
+                <div class="info">
+                    <input type="email" placeholder="Email" required= "required">
+                </div>
+                <div class="btn">
+                    <a href="#">Send</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
