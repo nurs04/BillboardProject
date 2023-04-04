@@ -13,7 +13,7 @@
     <div class="container">
         <div class="logIn_items">
             <div class="logIn_text">
-                <h1><span>Welcome</span> Back!</h1>
+                <h1><span>Happy</span> Clients!</h1>
                 <P>Just enter your email and password. If you don't have an account, click "Register" below.</P>
 
                 <form th:action="@{'/auth'}" method="post">
@@ -24,42 +24,24 @@
                     <div class="btn">
                         <button type="submit">Enter</button>
                     </div>
+                    <div class="wrong_password" id="wrong_password" th:if="${param.afterRegistration != null}">
+                        <p style="color: green">After successful registration you should log in repeatedly.</p>
+                    </div>
+                    <div class="wrong_password" id="wrong_password" th:if="${param.error != null}">
+                        <p>Incorrect email or password.</p>
+                    </div>
+                    <div class="wrong_password" id="wrong_password" th:if="${param.accountExist != null}">
+                        <p>You have already registered!</p>
+                    </div>
                 </form>
                 <div class="register">
                     <a th:href="@{'/auth/register'}">Register now</a>
-                    <a th:href="@{'/auth/forget'}">Forgot password?</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal_class" th:if="${param.afterRegistration != null}">
-    <div id="myModal">
-        <p>After successful registration you should log in repeatedly.
-        </p>
-        <span id="myModal__close" class="close">ₓ</span>
-    </div>
-    <div id="myOverlay"></div>
-</div>
-
-<div class="modal_class" th:if="${param.error != null}">
-    <div id="myModal">
-        <p>Incorrect email or password.
-        </p>
-        <span id="myModal__close" class="close">ₓ</span>
-    </div>
-    <div id="myOverlay"></div>
-</div>
-
-<div class="modal_class" th:if="${param.accountExist != null}">
-    <div id="myModal">
-        <p>You have already registered!
-        </p>
-        <span id="myModal__close" class="close">ₓ</span>
-    </div>
-    <div id="myOverlay"></div>
-</div>
 
 <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">

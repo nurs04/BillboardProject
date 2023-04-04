@@ -33,11 +33,6 @@ public class AuthController {
         return "register";
     }
 
-    @GetMapping(value = "/forget")
-    public String forgetPage() {
-        return "forget";
-    }
-
     @PostMapping(value = "/register")
     public String registerPage(@RequestParam(name = "reg_email") String email,
                                @RequestParam(name = "reg_password") String password,

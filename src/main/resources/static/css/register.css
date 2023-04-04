@@ -19,7 +19,6 @@ div, p, input, header, a, form {
 ul, li {
     margin: 0;
     padding: 0;
-    display: block;
 }
 
 p {
@@ -33,9 +32,8 @@ a {
 }
 
 .logIn {
-    padding: 120px 0 0;
+    padding: 1px 0 47px;
 }
-
 
 .logIn_text h1 span {
     color: #F4624B;
@@ -44,7 +42,9 @@ a {
 
 .logIn_text h1 {
     margin-bottom: 20px;
+    font-size: 30px;
 }
+
 
 
 .logIn_items img {
@@ -84,7 +84,7 @@ a {
     width: 300px;
     padding: 15px 27px;
     font-size: 14px;
-    margin-bottom: 10px;
+    margin-bottom: 18px;
 }
 
 .info input:nth-child(4n) {
@@ -121,4 +121,55 @@ button {
 .add-info span {
     color: #F4624B;
     text-decoration: none;
+}
+
+/* .inputs {
+    display: flex;
+} */
+
+.password_info p {
+    color: #5f5d5d;
+    text-align-last: left;
+    margin-left: 90px;
+    margin-bottom: 8px;
+}
+.password_info ul {
+    color: #5f5d5d;
+    text-align-last: left;
+    margin-left: 110px;
+    margin-bottom: 20px;
+}
+
+#message {
+    display:none;
+    background: #f1f1f1;
+    color: #000;
+    position: relative;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+#message p {
+    padding: 10px 35px;
+    font-size: 18px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+    color: green;
+}
+
+.valid:before {
+    position: relative;
+    left: -35px;
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+    color: red;
+}
+
+.invalid:before {
+    position: relative;
+    left: -35px;
 }
