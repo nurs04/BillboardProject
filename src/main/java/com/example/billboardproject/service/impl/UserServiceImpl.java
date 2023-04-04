@@ -1,8 +1,7 @@
 package com.example.billboardproject.service.impl;
 
-import com.example.billboardproject.repository.UserRepository;
 import com.example.billboardproject.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.billboardproject.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,8 +14,11 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User getUserById(Long id) {
         return userRepository.findById(id).orElseThrow();
