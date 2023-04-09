@@ -13,9 +13,15 @@ public class MainController {
         return "redirect:/auth/";
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @GetMapping(value = "/forbidden")
+    public String forbiddenPage() {
+        return "forbiddenPage";
+    }
+
+    @PreAuthorize("isAuthenticated()" )
     @GetMapping(value = "/mainPage")
     public String profilePage() {
         return "mainPage";
     }
+
 }

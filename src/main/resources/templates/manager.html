@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="/js/main.js"></script>
+    <link rel="stylesheet" href="/css/manage.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
+    <title>Admin Page</title>
+</head>
+<body>
+<section class="left_menu">
+    <div class="left_menu_items">
+        <h1>Happy Clients</h1>
+        <ul class="list">
+            <li class="dash">
+                <a th:href="@{'/admin/main/'}">Dashboard</a>
+            </li>
+            <li class="custom">
+                <a href="#">Customers</a>
+            </li>
+            <li class="bilbo">
+                <a th:href="@{'/admin/allBillboards/'}">All Bilboards</a>
+            </li>
+            <li class="new_bilbo">
+                <a th:href="@{'/admin/addNewBillboard/'}" >Post New Bilboard</a>
+            </li>
+        </ul>
+    </div>
+</section>
+<header class="sidebar">
+    <div class="container">
+        <div class="sidebar_items">
+            <div class="enter">
+                <img src="/img/user.png" class="user-pic" onclick="toggleMenu()">
+            </div>
+            <div class="name">
+                <p th:text="${#authentication.getPrincipal().name} + ' ' + ${#authentication.getPrincipal().surname}"></p>
+                <p>Super Admin</p>
+            </div>
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                    <div class="uer-info">
+                        <img src="/img/user.png" class="img2">
+                        <h3 th:text="${#authentication.getPrincipal().name} + ' ' + ${#authentication.getPrincipal().surname}"></h3>
+                    </div>
+                    <hr>
+                    <a th:href="@{'/mainPage/'}" class="sub-menu-link" sec:authorize="hasAuthority('MANAGER')">
+                        <i class="fa-solid fa-user"></i>
+                        <p>Home Page</p>
+                        <span>></span>
+                    </a>
+                    <a class="sub-menu-link" href="JavaScript:void(0)"
+                       onclick="singOutForm.submit()">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <p>Log out</p>
+                        <form th:action="@{'/signOut'}" method="post" id="singOutForm"></form>
+                        <span>></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section class="cards_info">
+    <div class="container">
+        <div class="cards_items">
+            <div class="card">
+                <div class="text">
+                    <h3>32</h3>
+                    <img src="/img/check.svg" alt="#">
+                </div>
+                <p>Active Ads</p>
+            </div>
+            <div class="card">
+                <div class="text">
+                    <h3>8</h3>
+                    <img src="/img/close.svg" alt="#">
+                </div>
+                <p>Inactive Ads</p>
+            </div>
+            <div class="card">
+                <div class="text">
+                    <h3>10</h3>
+                    <img src="/img/clockwise.svg" alt="#">
+                </div>
+                <p>Waiting Ads</p>
+            </div>
+            <div class="red_card">
+                <div class="text">
+                    <h3>6K</h3>
+                    <img src="/img/money.svg" alt="#">
+                </div>
+                <div class="red_report">
+                    <p>Income</p>
+                    <div class="report_item">
+                        <img src="/img/down-arrow.png" class="arrow">
+                        <div class="red_nav">
+                            <button type="button">In one day</button>
+                            <button type="button">For Month</button>
+                            <button type="button">For Year</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="order_side">
+            <!-- <h1>Order History</h1> -->
+            <div class="orders">
+                <div class="order_items">
+                    <div class="status">
+                        <h3>Status of Bilboards</h3>
+                        <div class="btn">
+                            <button type="button">
+                                See All
+                            </button>
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Bilboard Id</th>
+                            <th>Client Name</th>
+                            <th>Last Name</th>
+                            <th>Order Date</th>
+                            <th>End Date</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td> 1 </td>
+                            <td> 22.12.2022 </td>
+                            <td> 10.01.2023 </td>
+                            <td> 590101 </td>
+                            <td> 12456 </td>
+                            <td> 100$</td>
+                            <td><span>Expired</span></td>
+                        </tr>
+                        <tr>
+                            <td> 2 </td>
+                            <td> 22.12.2022 </td>
+                            <td> 10.01.2023 </td>
+                            <td> 590101 </td>
+                            <td> 12456 </td>
+                            <td> 100$</td>
+                            <td><span>Expired</span></td>
+                        </tr>
+                        <tr>
+                            <td> 3 </td>
+                            <td> 22.12.2022 </td>
+                            <td> 10.01.2023 </td>
+                            <td> 590101 </td>
+                            <td> 12456 </td>
+                            <td> 100$</td>
+                            <td><span>Expired</span></td>
+                        </tr>
+                        <tr>
+                            <td> 4 </td>
+                            <td> 22.12.2022 </td>
+                            <td> 10.01.2023 </td>
+                            <td> 590101 </td>
+                            <td> 12456 </td>
+                            <td> 100$</td>
+                            <td><span>Expired</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    let subMenu = document.getElementById("subMenu");
+
+    function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+
+    }
+</script>
+</body>
+</html>

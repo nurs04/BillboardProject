@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -49,12 +50,17 @@
                                     <h3 th:text="${#authentication.getPrincipal().name} + ' ' + ${#authentication.getPrincipal().surname}"></h3>
                                 </div>
                                 <hr>
-                                <a href="#" class="sub-menu-link">
+                                <a th:href="@{'/admin/main/'}" class="sub-menu-link" sec:authorize="hasAuthority('MANAGER')">
+                                    <i class="fa-solid fa-user"></i>
+                                    <p>Admin page</p>
+                                    <span>></span>
+                                </a>
+                                <a href="#" class="sub-menu-link" sec:authorize="hasAuthority('USER')">
                                     <i class="fa-solid fa-user"></i>
                                     <p>My profile</p>
                                     <span>></span>
                                 </a>
-                                <a href="#" class="sub-menu-link">
+                                <a href="#" class="sub-menu-link"  sec:authorize="hasAuthority('USER')">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     <p>Edit profile</p>
                                     <span>></span>
