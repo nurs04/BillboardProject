@@ -71,12 +71,13 @@ a {
 
 .sub-menu-wrap {
     position: absolute;
-    top: 68px;
-    right: 93px;
+    top: 73px;
+    right: -11px;
     width: 260px;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s;
+    z-index: 2;
 }
 
 .sub-menu-wrap.open-menu {
@@ -125,6 +126,7 @@ a {
 }
 
 .sidebar_items {
+    position: relative;
     padding: 20px 0;
     display: flex;
     justify-content: end;
@@ -284,6 +286,7 @@ a {
 
 .report_item {
     position: relative;
+    z-index: 1;
 }
 
 .red_nav {

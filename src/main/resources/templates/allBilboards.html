@@ -39,6 +39,27 @@
                     <p th:text="${#authentication.getPrincipal().name} + ' ' + ${#authentication.getPrincipal().surname}"></p>
                     <p>Super Admin</p>
                 </div>
+                <div class="sub-menu-wrap" id="subMenu">
+                    <div class="sub-menu">
+                        <div class="uer-info">
+                            <img src="/img/user.png" class="img2">
+                            <h3 th:text="${#authentication.getPrincipal().name} + ' ' + ${#authentication.getPrincipal().surname}"></h3>
+                        </div>
+                        <hr>
+                        <a th:href="@{'/mainPage/'}" class="sub-menu-link" sec:authorize="hasAuthority('MANAGER')">
+                            <i class="fa-solid fa-user"></i>
+                            <p>Home Page</p>
+                            <span>></span>
+                        </a>
+                        <a class="sub-menu-link" href="JavaScript:void(0)"
+                           onclick="singOutForm.submit()">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <p>Log out</p>
+                            <form th:action="@{'/signOut'}" method="post" id="singOutForm"></form>
+                            <span>></span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -115,5 +136,13 @@
         </div>
     </div>
 </section>
+<script>
+    let subMenu = document.getElementById("subMenu");
+
+    function toggleMenu() {
+        subMenu.classList.toggle("open-menu");
+
+    }
+</script>
 </body>
 </html>
