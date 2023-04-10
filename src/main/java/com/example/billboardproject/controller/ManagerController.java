@@ -16,6 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 @Controller
@@ -40,6 +43,11 @@ public class ManagerController {
     @PreAuthorize("hasAnyAuthority('MANAGER')")
     @GetMapping(value = "/allBillboards")
     public String allBillboardsPage(Model model) {
+        DateFormat dateFormat = new SimpleDateFormat("MM");
+        String dateString = dateFormat.format(new Date());
+
+        int currentMonth = Integer.parseInt(dateString);
+        model.addAttribute("currentMonth", currentMonth);
         model.addAttribute("billboards", billboardService.getAllBillboards());
         return "allBilboards";
     }

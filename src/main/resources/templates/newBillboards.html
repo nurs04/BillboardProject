@@ -78,7 +78,7 @@
                                 <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
                                 <div class="text">No file chosen, yet!</i></div>
                             </div>
-                            <div id="cancel_btn"><i class="fas fa-times"></i></div>
+                            <div id="cancel_btn" onclick="cancelBtnActive()"><i class="fas fa-times"></i></div>
                             <div id="file_name"><i>File name here</i></div>
                         </div>
                         <input id="default-btn" type="file" name="billboard_url" hidden>
@@ -145,9 +145,17 @@
     const img = document.querySelector("#addImg");
     let regExp = /[0-9a-zA-Z\\&\"\@\{\}\[\]\, \$\=\/\-\#\(\)\. \%\+\~\_ ]+$/;
 
-    function defaultBtnActive() {
+    function defaultBtnActive(){
         defaultBtn.click();
+        img.style.zIndex = '1';
+        cancelBtn.style.zIndex = '1';
+        fileName.style.zIndex = '1';
     }
+
+    function cancelBtnActive(){
+        img.style.zIndex = '-1';
+    }
+
 
     function uploadFile() {
         console.log("Файл отправлен!");

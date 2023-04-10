@@ -445,3 +445,7 @@ button {
 form  {
     border: #000;
 }
+
+.image img {
+    z-index: -1;
+}

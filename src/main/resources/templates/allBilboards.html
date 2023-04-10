@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -104,20 +104,21 @@
                     </div>
                     <div class="order_circles">
                         <div class="order_first">
-                            <button>1</button>
-                            <button>2</button>
-                            <button>3</button>
-                            <button>4</button>
-                            <button>5</button>
-                            <button>6</button>
+<!--                            <button th:each="i : ${#numbers.sequence(1, 6)}" th:style="${month < #numbers.parseInt(i) ? 'background: grey' : 'background:#4BD4FF'}" th:text="${i}"></button>-->
+                            <button th:style="${currentMonth > 1 ? 'background: grey' : 'background:#4BD4FF'}">1</button>
+                            <button th:style="${currentMonth > 2 ? 'background: grey' : 'background:#4BD4FF'}">2</button>
+                            <button th:style="${currentMonth > 3 ? 'background: grey' : 'background:#4BD4FF'}">3</button>
+                            <button th:style="${currentMonth > 4 ? 'background: grey' : 'background:#4BD4FF'}">4</button>
+                            <button th:style="${currentMonth > 5 ? 'background: grey' : 'background:#4BD4FF'}">5</button>
+                            <button th:style="${currentMonth > 6 ? 'background: grey' : 'background:#4BD4FF'}">6</button>
                         </div>
                         <div class="order_second">
-                            <button>7</button>
-                            <button>8</button>
-                            <button>9</button>
-                            <button>10</button>
-                            <button>11</button>
-                            <button>12</button>
+                            <button th:style="${currentMonth > 7 ? 'background: grey' : 'background:#4BD4FF'}">7</button>
+                            <button th:style="${currentMonth > 8 ? 'background: grey' : 'background:#4BD4FF'}">8</button>
+                            <button th:style="${currentMonth > 9 ? 'background: grey' : 'background:#4BD4FF'}">9</button>
+                            <button th:style="${currentMonth > 10 ? 'background: grey' : 'background:#4BD4FF'}">10</button>
+                            <button th:style="${currentMonth > 11 ? 'background: grey' : 'background:#4BD4FF'}">11</button>
+                            <button th:style="${currentMonth > 12 ? 'background: grey' : 'background:#4BD4FF'}">12</button>
                         </div>
                         <div class="btn">
                             <a class="detail" href="detailEditing.html">
