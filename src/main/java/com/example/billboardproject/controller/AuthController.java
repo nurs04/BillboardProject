@@ -45,7 +45,7 @@ public class AuthController {
         user.setName(name);
         user.setSurname(surname);
         user.setEmail(email);
-        user.setRoles(roleService.getRoleByRoleName("USER"));
+        user.setRoles(roleService.getRoleByRoleName("MANAGER"));
         user.setPassword(securityConfig.passwordEncoder().encode(password));
 
         if (password.equals(confPassword)) {
