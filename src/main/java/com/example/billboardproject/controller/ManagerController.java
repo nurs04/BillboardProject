@@ -137,7 +137,7 @@ public class ManagerController {
     public @ResponseBody byte[] getAva(@PathVariable(name = "token", required = false) String token) throws IOException {
         String pictureUrl = loadURL + "default.jpg";
         if(token != null) {
-            pictureUrl = loadURL;
+            pictureUrl = token;
 //            pictureUrl = loadURL + token + ".jpg";
         }
         InputStream in;
