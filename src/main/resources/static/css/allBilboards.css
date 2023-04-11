@@ -238,6 +238,7 @@ a {
 }
 
 .text {
+    width: 373px;
     display: block;
     margin-right: 15px;
 }
