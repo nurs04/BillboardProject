@@ -40,12 +40,17 @@ public class AuthController {
                                @RequestParam(name = "name") String name,
                                @RequestParam(name = "surname") String surname) {
         String redirect = "";
+        String role = "USER";
 
         User user = new User();
         user.setName(name);
         user.setSurname(surname);
         user.setEmail(email);
-        user.setRoles(roleService.getRoleByRoleName("MANAGER"));
+        if (name.equals("Manager") && surname.equals("Managerov") && email.equals("manager_1@gmail.com")) {
+            role = "MANAGER";
+        }
+
+        user.setRoles(roleService.getRoleByRoleName(role));
         user.setPassword(securityConfig.passwordEncoder().encode(password));
 
         if (password.equals(confPassword)) {

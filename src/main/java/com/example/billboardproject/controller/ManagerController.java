@@ -41,6 +41,17 @@ public class ManagerController {
     }
 
     @PreAuthorize("hasAnyAuthority('MANAGER')")
+    @GetMapping(value = "/detailEditBillboard/{billboard_id}")
+    public String detailEditBillboardPage(Model model,
+                                          @PathVariable(name = "billboard_id") Long id) {
+        Billboard billboard = billboardService.getBillboard(id);
+        if (billboard != null) {
+            model.addAttribute("billboard", billboard);
+        }
+        return "detailEditing";
+    }
+
+    @PreAuthorize("hasAnyAuthority('MANAGER')")
     @GetMapping(value = "/allBillboards")
     public String allBillboardsPage(Model model) {
         DateFormat dateFormat = new SimpleDateFormat("MM");
@@ -63,6 +74,34 @@ public class ManagerController {
     public String deleteFolder(@RequestParam(name = "deleteBillboardId") Long deleteBillboardId) {
         billboardService.deleteBillboard(deleteBillboardId);
         return "redirect:/admin/allBillboards/";
+    }
+
+    @PreAuthorize("hasAnyAuthority('MANAGER')")
+    @PostMapping(value = "/editBillboard")
+    public String editBillboard(@RequestParam(name = "id") Long id,
+                               @RequestParam(name = "location") String location,
+                               @RequestParam(name = "size") String size,
+                               @RequestParam(name = "isHasLightning") boolean isHasLightning,
+                               @RequestParam(name = "price") double price,
+                               @RequestParam(name = "billboard_url") MultipartFile file) {
+        String city = "Almaty";
+        String type = "one-sided";
+        Billboard billboard = billboardService.getBillboard(id);
+        billboard.setCity(city);
+        billboard.setPrice(price);
+        billboard.setType(type);
+        billboard.setLocation(location);
+        billboard.setSize(size);
+        billboard.setHasLightning(isHasLightning);
+
+        if (Objects.equals(file.getContentType(), "image/jpeg") || Objects.equals(file.getContentType(), "image/png")) {
+            fileUploadService.uploadImg(file, billboard);
+        }
+
+        billboardService.updateBillboard(billboard);
+
+        return "redirect:/admin/allBillboards/";
+
     }
 
     @PreAuthorize("hasAnyAuthority('MANAGER')")

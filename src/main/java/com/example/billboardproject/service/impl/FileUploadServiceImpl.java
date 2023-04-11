@@ -2,7 +2,6 @@ package com.example.billboardproject.service.impl;
 
 import com.example.billboardproject.model.Billboard;
 import com.example.billboardproject.service.FileUploadService;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,8 @@ public class FileUploadServiceImpl implements FileUploadService {
     @Override
     public boolean uploadImg(MultipartFile file, Billboard billboard) {
         try {
-            String fileToken = DigestUtils.sha1Hex(billboard.getId() + "_!");
+            //String fileToken = DigestUtils.sha1Hex(billboard.getId() + "_!");
+            String fileToken = file.getOriginalFilename();
             String fileName = fileToken + ".jpg";
             byte[] bytes = file.getBytes();
             Path path = Paths.get(targetURL + "/" + fileName);

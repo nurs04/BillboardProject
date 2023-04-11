@@ -19,13 +19,13 @@
                 <a th:href="@{'/admin/main/'}">Dashboard</a>
             </li>
             <li class="custom">
-                <a href="#">Customers</a>
+                <a>Customers</a>
             </li>
             <li class="bilbo">
-                <a th:href="@{'/admin/allBillboards/'}">All Bilboards</a>
+                <a th:href="@{'/admin/allBillboards/'}">All Billboards</a>
             </li>
             <li class="new_bilbo">
-                <a th:href="@{'/admin/addNewBillboard/'}">Post New Bilboard</a>
+                <a th:href="@{'/admin/addNewBillboard/'}">Post New Billboard</a>
             </li>
         </ul>
     </div>
@@ -121,7 +121,7 @@
                             <button th:style="${currentMonth > 12 ? 'background: grey' : 'background:#4BD4FF'}">12</button>
                         </div>
                         <div class="btn">
-                            <a class="detail" href="detailEditing.html">
+                            <a class="detail" th:href="@{'/admin/detailEditBillboard/'+${billboard.id}}">
                                 <button>Details&Editing</button>
                             </a>
                             <form th:action="@{'/admin/deleteBillboard'}" method="post">

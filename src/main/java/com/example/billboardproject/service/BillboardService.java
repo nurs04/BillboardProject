@@ -8,5 +8,7 @@ public interface BillboardService {
     List<Billboard> getAllBillboards();
     Billboard addBillboard(Billboard billboard);
     Billboard updateBillboard(Billboard billboard);
+
+    Billboard getBillboard(Long id);
     void deleteBillboard(Long id);
 }

@@ -25,6 +25,11 @@ public class BillboardServiceImpl implements BillboardService {
     }
 
     @Override
+    public Billboard getBillboard(Long id) {
+        return billboardRepository.getReferenceById(id);
+    }
+
+    @Override
     public Billboard updateBillboard(Billboard billboard) {
         return billboardRepository.save(billboard);
     }
