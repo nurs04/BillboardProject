@@ -6,6 +6,9 @@ import java.util.List;
 
 public interface BillboardService {
     List<Billboard> getAllBillboards();
+    List<Billboard> getAllActiveBillboards();
+
+    List<Billboard> getAllNotActiveBillboards();
     Billboard addBillboard(Billboard billboard);
     Billboard updateBillboard(Billboard billboard);
 

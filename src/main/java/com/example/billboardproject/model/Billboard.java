@@ -18,4 +18,5 @@ public class Billboard extends BaseEntity{
     private String size;
     private boolean isHasLightning;
     private double price;
+    private boolean isActive;
 }

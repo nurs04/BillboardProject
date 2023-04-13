@@ -59,7 +59,8 @@ public class ManagerController {
 
         int currentMonth = Integer.parseInt(dateString);
         model.addAttribute("currentMonth", currentMonth);
-        model.addAttribute("billboards", billboardService.getAllBillboards());
+        model.addAttribute("billboards", billboardService.getAllActiveBillboards());
+        model.addAttribute("notActiveBillboards", billboardService.getAllNotActiveBillboards());
         return "allBilboards";
     }
 
@@ -71,8 +72,24 @@ public class ManagerController {
 
     @PreAuthorize("hasAnyAuthority('MANAGER')")
     @PostMapping(value = "/deleteBillboard")
-    public String deleteFolder(@RequestParam(name = "deleteBillboardId") Long deleteBillboardId) {
-        billboardService.deleteBillboard(deleteBillboardId);
+    public String deleteBillboard(@RequestParam(name = "deleteBillboardId") Long deleteBillboardId) {
+        Billboard billboard = billboardService.getBillboard(deleteBillboardId);
+        if (billboard.isActive()) {
+            billboard.setActive(false);
+        }
+        billboardService.updateBillboard(billboard);
+        //billboardService.deleteBillboard(deleteBillboardId);
+        return "redirect:/admin/allBillboards/";
+    }
+
+    @PreAuthorize("hasAnyAuthority('MANAGER')")
+    @PostMapping(value = "/recoverBillboard")
+    public String recoverBillboard(@RequestParam(name = "recoverBillboardId") Long recoverBillboardId) {
+        Billboard billboard = billboardService.getBillboard(recoverBillboardId);
+        if (!billboard.isActive()) {
+            billboard.setActive(true);
+        }
+        billboardService.updateBillboard(billboard);
         return "redirect:/admin/allBillboards/";
     }
 
@@ -90,6 +107,7 @@ public class ManagerController {
         billboard.setCity(city);
         billboard.setPrice(price);
         billboard.setType(type);
+        billboard.setActive(true);
         billboard.setLocation(location);
         billboard.setSize(size);
         billboard.setHasLightning(isHasLightning);
@@ -116,6 +134,7 @@ public class ManagerController {
         Billboard billboard = Billboard.builder()
                 .location(location)
                 .price(price)
+                .isActive(true)
                 .isHasLightning(isHasLightning)
                 .type(type)
                 .size(size)
@@ -137,8 +156,8 @@ public class ManagerController {
     public @ResponseBody byte[] getAva(@PathVariable(name = "token", required = false) String token) throws IOException {
         String pictureUrl = loadURL + "default.jpg";
         if(token != null) {
-//           pictureUrl = loadURL + token + ".jpg";
-            pictureUrl = loadURL + token;
+           pictureUrl = loadURL + token + ".jpg";
+//            pictureUrl = loadURL + token; FOR DEPLOY
         }
         InputStream in;
 

@@ -104,32 +104,139 @@
                     </div>
                     <div class="order_circles">
                         <div class="order_first">
-<!--                            <button th:each="i : ${#numbers.sequence(1, 6)}" th:style="${month < #numbers.parseInt(i) ? 'background: grey' : 'background:#4BD4FF'}" th:text="${i}"></button>-->
-                            <button th:style="${currentMonth > 1 ? 'background: grey' : 'background:#4BD4FF'}">1</button>
-                            <button th:style="${currentMonth > 2 ? 'background: grey' : 'background:#4BD4FF'}">2</button>
-                            <button th:style="${currentMonth > 3 ? 'background: grey' : 'background:#4BD4FF'}">3</button>
-                            <button th:style="${currentMonth > 4 ? 'background: grey' : 'background:#4BD4FF'}">4</button>
-                            <button th:style="${currentMonth > 5 ? 'background: grey' : 'background:#4BD4FF'}">5</button>
-                            <button th:style="${currentMonth > 6 ? 'background: grey' : 'background:#4BD4FF'}">6</button>
+                            <!--                            <button th:each="i : ${#numbers.sequence(1, 6)}" th:style="${month < #numbers.parseInt(i) ? 'background: grey' : 'background:#4BD4FF'}" th:text="${i}"></button>-->
+                            <button th:style="${currentMonth > 1 ? 'background: grey' : 'background:#4BD4FF'}">1
+                            </button>
+                            <button th:style="${currentMonth > 2 ? 'background: grey' : 'background:#4BD4FF'}">2
+                            </button>
+                            <button th:style="${currentMonth > 3 ? 'background: grey' : 'background:#4BD4FF'}">3
+                            </button>
+                            <button th:style="${currentMonth > 4 ? 'background: grey' : 'background:#4BD4FF'}">4
+                            </button>
+                            <button th:style="${currentMonth > 5 ? 'background: grey' : 'background:#4BD4FF'}">5
+                            </button>
+                            <button th:style="${currentMonth > 6 ? 'background: grey' : 'background:#4BD4FF'}">6
+                            </button>
                         </div>
                         <div class="order_second">
-                            <button th:style="${currentMonth > 7 ? 'background: grey' : 'background:#4BD4FF'}">7</button>
-                            <button th:style="${currentMonth > 8 ? 'background: grey' : 'background:#4BD4FF'}">8</button>
-                            <button th:style="${currentMonth > 9 ? 'background: grey' : 'background:#4BD4FF'}">9</button>
-                            <button th:style="${currentMonth > 10 ? 'background: grey' : 'background:#4BD4FF'}">10</button>
-                            <button th:style="${currentMonth > 11 ? 'background: grey' : 'background:#4BD4FF'}">11</button>
-                            <button th:style="${currentMonth > 12 ? 'background: grey' : 'background:#4BD4FF'}">12</button>
+                            <button th:style="${currentMonth > 7 ? 'background: grey' : 'background:#4BD4FF'}">7
+                            </button>
+                            <button th:style="${currentMonth > 8 ? 'background: grey' : 'background:#4BD4FF'}">8
+                            </button>
+                            <button th:style="${currentMonth > 9 ? 'background: grey' : 'background:#4BD4FF'}">9
+                            </button>
+                            <button th:style="${currentMonth > 10 ? 'background: grey' : 'background:#4BD4FF'}">10
+                            </button>
+                            <button th:style="${currentMonth > 11 ? 'background: grey' : 'background:#4BD4FF'}">11
+                            </button>
+                            <button th:style="${currentMonth > 12 ? 'background: grey' : 'background:#4BD4FF'}">12
+                            </button>
                         </div>
                         <div class="btn">
                             <a class="detail" th:href="@{'/admin/detailEditBillboard/'+${billboard.id}}">
                                 <button>Details&Editing</button>
                             </a>
-                            <form th:action="@{'/admin/deleteBillboard'}" method="post">
-                                <input type="hidden" name="deleteBillboardId" th:value="${billboard.id}">
-                                <a class="delete">
-                                    <button>Delete</button>
-                                </a>
-                            </form>
+                            <div class="delete">
+                                <input type="hidden" id="inputField1" name="deleteBillboardId" th:value="${billboard.id}">
+                                <button id="submitButton" type="submit">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="myModal">
+                    <h3>Are you sure delete?</h3>
+                    <div class="modal_btn" id="outputDiv">
+                        <form th:action="@{'/admin/deleteBillboard'}" method="post">
+                            <input type="hidden" id="inputField2" name="deleteBillboardId">
+                            <button type="submit" id="changeValueButton" style="background: #A52800; margin-right: 15px">Yes</button>
+                        </form>
+                        <button type="submit" id="close">No</button>
+                    </div>
+                    <span id="myModal__close" class="close">ₓ</span>
+                </div>
+            </div>
+        </div>
+        <div class="recover">
+            <div class="dropdown">
+                <button onclick="myFunction()" class="dropbtn"> Recover ▼</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <div class="cards_item" th:each="billboard : ${notActiveBillboards}">
+                        <div class="image">
+                            <img th:src="@{'/admin/getAva/' + ${billboard.billboard_url}}" alt="">
+                        </div>
+                        <div class="text">
+                            <div class="text_item">
+                                <h3>Location:</h3>
+                                <p th:text="${billboard.location}"></p>
+                            </div>
+                            <div class="text_item">
+                                <h3>City:</h3>
+                                <p th:text="${billboard.city}"></p>
+                            </div>
+                            <div class="text_item">
+                                <h3>Type:</h3>
+                                <p th:text="${billboard.type}"></p>
+                            </div>
+                            <div class="text_item">
+                                <h3>Size:</h3>
+                                <p th:text="${billboard.size}"></p>
+                            </div>
+                            <div class="text_item">
+                                <h3>Price:</h3>
+                                <p th:text="${billboard.price} + '$(per month)'"></p>
+                            </div>
+                            <div class="text_item">
+                                <h3>Lighting:</h3>
+                                <p th:text="${billboard.isHasLightning}?'Available':'Not Available'"></p>
+                            </div>
+                        </div>
+                        <div class="circle">
+                            <div class="id">
+                                <h3>ID:</h3>
+                                <span th:text=" ${billboard.id}"></span>
+                            </div>
+                            <div class="order_circles">
+                                <div class="order_first">
+                                    <!--                            <button th:each="i : ${#numbers.sequence(1, 6)}" th:style="${month < #numbers.parseInt(i) ? 'background: grey' : 'background:#4BD4FF'}" th:text="${i}"></button>-->
+                                    <button th:style="${currentMonth > 1 ? 'background: grey' : 'background:#4BD4FF'}">1
+                                    </button>
+                                    <button th:style="${currentMonth > 2 ? 'background: grey' : 'background:#4BD4FF'}">2
+                                    </button>
+                                    <button th:style="${currentMonth > 3 ? 'background: grey' : 'background:#4BD4FF'}">3
+                                    </button>
+                                    <button th:style="${currentMonth > 4 ? 'background: grey' : 'background:#4BD4FF'}">4
+                                    </button>
+                                    <button th:style="${currentMonth > 5 ? 'background: grey' : 'background:#4BD4FF'}">5
+                                    </button>
+                                    <button th:style="${currentMonth > 6 ? 'background: grey' : 'background:#4BD4FF'}">6
+                                    </button>
+                                </div>
+                                <div class="order_second">
+                                    <button th:style="${currentMonth > 7 ? 'background: grey' : 'background:#4BD4FF'}">7
+                                    </button>
+                                    <button th:style="${currentMonth > 8 ? 'background: grey' : 'background:#4BD4FF'}">8
+                                    </button>
+                                    <button th:style="${currentMonth > 9 ? 'background: grey' : 'background:#4BD4FF'}">9
+                                    </button>
+                                    <button th:style="${currentMonth > 10 ? 'background: grey' : 'background:#4BD4FF'}">
+                                        10
+                                    </button>
+                                    <button th:style="${currentMonth > 11 ? 'background: grey' : 'background:#4BD4FF'}">
+                                        11
+                                    </button>
+                                    <button th:style="${currentMonth > 12 ? 'background: grey' : 'background:#4BD4FF'}">
+                                        12
+                                    </button>
+                                </div>
+                                <form th:action="@{'/admin/recoverBillboard'}" method="post">
+                                    <input type="hidden" name="recoverBillboardId" th:value="${billboard.id}">
+                                    <div class="btn">
+                                        <div class="recDelete">
+                                            <button type="submit">Recover</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -137,12 +244,69 @@
         </div>
     </div>
 </section>
+<div id="myOverlay"></div>
+<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+<script>
+    var inputField1 = document.getElementById('inputField1');
+    var inputField2 = document.getElementById('inputField2');
+    var changeValueButton = document.getElementById('changeValueButton');
+
+    // Add event listener to the button for 'click' event
+    changeValueButton.addEventListener('click', function() {
+        // Update the value of inputField2 with inputField1 value
+        inputField2.value = inputField1.value;
+    });
+</script>
 <script>
     let subMenu = document.getElementById("subMenu");
 
     function toggleMenu() {
         subMenu.classList.toggle("open-menu");
 
+    }
+</script>
+<script>
+    $('.delete').click(function (event) {
+        event.preventDefault();
+        $('#myOverlay').fadeIn(297, function () {
+            $('#myModal')
+                .css('display', 'block')
+                .animate({opacity: 1}, 198);
+        });
+    });
+
+    $('#myModal__close, #myOverlay').click(function () {
+        $('#myModal').animate({opacity: 0}, 198, function () {
+            $(this).css('display', 'none');
+            $('#myOverlay').fadeOut(297);
+        });
+    });
+    $('#close, #myOverlay').click(function () {
+        $('#myModal').animate({opacity: 0}, 198, function () {
+            $(this).css('display', 'none');
+            $('#myOverlay').fadeOut(297);
+        });
+    });
+</script>
+<script>
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    function filterFunction() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        div = document.getElementById("myDropdown");
+        a = div.getElementsByTagName("a");
+        for (i = 0; i < a.length; i++) {
+            txtMean = a[i].textValue || a[i].innerText;
+            if (txtMean.toUpperCase().indexOf(filter) > -1) {
+                a[i].style.display = "";
+            } else {
+                a[i].style.display = "none";
+            }
+        }
     }
 </script>
 </body>

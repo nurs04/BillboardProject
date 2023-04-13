@@ -8,4 +8,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public interface BillboardRepository extends JpaRepository<Billboard, Long> {
+
 }

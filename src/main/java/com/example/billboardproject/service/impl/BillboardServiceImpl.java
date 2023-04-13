@@ -6,6 +6,7 @@ import com.example.billboardproject.service.BillboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,6 +23,34 @@ public class BillboardServiceImpl implements BillboardService {
     @Override
     public Billboard addBillboard(Billboard billboard) {
         return billboardRepository.save(billboard);
+    }
+
+    @Override
+    public List<Billboard> getAllNotActiveBillboards() {
+        List<Billboard> billboards = getAllBillboards();
+        List<Billboard> activeBillboards = new ArrayList<>();
+
+        for (Billboard bill:billboards) {
+            if (!bill.isActive()) {
+                activeBillboards.add(bill);
+            }
+        }
+
+        return activeBillboards;
+    }
+
+    @Override
+    public List<Billboard> getAllActiveBillboards() {
+        List<Billboard> billboards = getAllBillboards();
+        List<Billboard> activeBillboards = new ArrayList<>();
+
+        for (Billboard bill:billboards) {
+            if (bill.isActive()) {
+                activeBillboards.add(bill);
+            }
+        }
+
+        return activeBillboards;
     }
 
     @Override
