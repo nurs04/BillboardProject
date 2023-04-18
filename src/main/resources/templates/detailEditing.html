@@ -133,14 +133,31 @@
                             <label>Price($)</label>
                             <input type="text" name="price" th:value="${billboard.price}">
                         </div>
-                        <button type="submit">Save</button>
+                        <div class="detail_btn">
+                            <button type="submit">Save</button>
+<!--                            <div class="delete_btn">-->
+                                <button class="delete_btn">Delete</button>
+<!--                            </div>-->
+                        </div>
                     </div>
                 </div>
             </div>
         </form>
     </div>
-
 </section>
+<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+<div id="myModal">
+    <h3>Are you sure delete?</h3>
+    <div class="modal_btn" id="outputDiv">
+        <form th:action="@{'/admin/deleteBillboard'}" method="post">
+            <input type="hidden" id="inputField2" name="deleteBillboardId" th:value="${billboard.id}">
+            <button type="submit" style="background-color: #7B2E1C">Yes</button>
+        </form>
+        <button type="submit" id="close">No</button>
+    </div>
+</div>
+<div id="myOverlay"></div>
+<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
 <script>
     let subMenu = document.getElementById("subMenu");
 
@@ -205,6 +222,29 @@
         } else {
             console.log("Файл не выбран!");
         }
+    });
+</script>
+<script>
+    $('.delete_btn').click( function(event){
+        event.preventDefault();
+        $('#myOverlay').fadeIn(297,  function(){
+            $('#myModal')
+                .css('display', 'block')
+                .animate({opacity: 1}, 198);
+        });
+    });
+
+    $('#myModal__close, #myOverlay').click( function(){
+        $('#myModal').animate({opacity: 0}, 198, function(){
+            $(this).css('display', 'none');
+            $('#myOverlay').fadeOut(297);
+        });
+    });
+    $('#close, #myOverlay').click( function(){
+        $('#myModal').animate({opacity: 0}, 198, function(){
+            $(this).css('display', 'none');
+            $('#myOverlay').fadeOut(297);
+        });
     });
 </script>
 </body>

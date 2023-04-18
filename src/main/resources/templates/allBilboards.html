@@ -136,27 +136,26 @@
                             <a class="detail" th:href="@{'/admin/detailEditBillboard/'+${billboard.id}}">
                                 <button>Details&Editing</button>
                             </a>
-                            <div class="delete">
-                                <input type="hidden" id="inputField1" name="deleteBillboardId" th:value="${billboard.id}">
-                                <button id="submitButton" type="submit">Delete</button>
-                            </div>
+<!--                            <div class="delete">-->
+<!--                                <input type="hidden" id="inputField1" name="deleteBillboardId" th:value="${billboard.id}">-->
+<!--                                <button id="submitButton" type="submit">Delete</button>-->
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>
-                <div id="myModal">
-                    <h3>Are you sure delete?</h3>
-                    <div class="modal_btn" id="outputDiv">
-                        <form th:action="@{'/admin/deleteBillboard'}" method="post">
-                            <input type="hidden" id="inputField2" name="deleteBillboardId">
-                            <button type="submit" id="changeValueButton" style="background: #A52800; margin-right: 15px">Yes</button>
-                        </form>
-                        <button type="submit" id="close">No</button>
-                    </div>
-                    <span id="myModal__close" class="close">ₓ</span>
-                </div>
+<!--                <div id="myModal">-->
+<!--                    <h3>Are you sure delete?</h3>-->
+<!--                    <div class="modal_btn" id="outputDiv">-->
+<!--                        <form th:action="@{'/admin/deleteBillboard'}" method="post">-->
+<!--                            <input type="hidden" id="inputField2" name="deleteBillboardId">-->
+<!--                            <button type="submit" id="changeValueButton" style="background: #A52800; margin-right: 15px">Yes</button>-->
+<!--                        </form>-->
+<!--                        <button type="submit" id="close">No</button>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
-        <div class="recover">
+        <div class="recover" th:hidden="${#lists.isEmpty(notActiveBillboards)}">
             <div class="dropdown">
                 <button onclick="myFunction()" class="dropbtn"> Recover ▼</button>
                 <div id="myDropdown" class="dropdown-content">
@@ -247,6 +246,16 @@
 <div id="myOverlay"></div>
 <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
 <script>
+    let subMenu = document.getElementById("subMenu");
+
+    function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+
+    }
+</script>
+<script>
+
+    // Get the input field elements and button
     var inputField1 = document.getElementById('inputField1');
     var inputField2 = document.getElementById('inputField2');
     var changeValueButton = document.getElementById('changeValueButton');
@@ -258,31 +267,23 @@
     });
 </script>
 <script>
-    let subMenu = document.getElementById("subMenu");
-
-    function toggleMenu() {
-        subMenu.classList.toggle("open-menu");
-
-    }
-</script>
-<script>
     $('.delete').click(function (event) {
         event.preventDefault();
         $('#myOverlay').fadeIn(297, function () {
-            $('#myModal')
+            $('.myModal')
                 .css('display', 'block')
                 .animate({opacity: 1}, 198);
         });
     });
 
     $('#myModal__close, #myOverlay').click(function () {
-        $('#myModal').animate({opacity: 0}, 198, function () {
+        $('.myModal').animate({opacity: 0}, 198, function () {
             $(this).css('display', 'none');
             $('#myOverlay').fadeOut(297);
         });
     });
     $('#close, #myOverlay').click(function () {
-        $('#myModal').animate({opacity: 0}, 198, function () {
+        $('.myModal').animate({opacity: 0}, 198, function () {
             $(this).css('display', 'none');
             $('#myOverlay').fadeOut(297);
         });

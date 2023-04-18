@@ -25,7 +25,7 @@
                         </li>
                         <li>
                             <a href="#cards">
-                                All Bilboards
+                                All Billboards
                             </a>
                         </li>
                         <li>
@@ -87,22 +87,6 @@
     </header>
     <section class="header">
         <div class="container">
-            <!-- <div class="log">
-                <div class="welcome">
-                    <h1>Welcome to Billboard Ads Marketplace</h1>
-                </div>
-            </div> -->
-            <!-- <hr> -->
-            <!-- <div class="banner">
-                <div class="banner_info">
-                    <div class="banner_text">
-                        <h2>Outdoor advertising on billboards Almaty</h2>
-                        <a href="">View the list</a>
-                        <p>More flexibility, freedom and choice!</p>
-                    </div>
-                    <img src="img/default.jpg" alt="#">
-                </div>
-            </div> -->
             <div class="text_banner">
                 <h2>Outdoor advertising on billboards Almaty</h2>
                 <button type="button">View the List</button>  
@@ -111,164 +95,20 @@
     </section>
     <section class="items" id="cards">
         <div class="container">
-            <h1>Top Bilboards</h1>
+            <h1>All Billboards</h1>
             <div class="cards">
-                <div class="cards_item">
+                <div class="cards_item" th:each="billboard : ${billboards}">
                     <div class="img_banner">
-                        <img src="/img/banner1.png" alt="#">
+                        <img th:src="@{'/admin/getAva/' + ${billboard.billboard_url}}" alt="#">
                         <a href="#">Featured</a>
-                        <p>Per month 400$</p>
+                        <p th:text="'Per month ' + ${billboard.price} + '$'"></p>
                     </div>
                     <div class="banner_detail">
                         <div class="banner_textD">
-                            <h3>Intersection of Abay-Sain streets</h3>
-                            <p>City: Almaty</p>
-                            <p>Type: one - sided</p>
-                            <p>Size: 5000x2900 mm</p>
-                        </div>
-                        <div class="banner_btn">
-                            <a href="#">Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="cards_item">
-                    <div class="img_banner">
-                        <img src="/img/banner2.png" alt="#">
-                        <a href="#">Featured</a>
-                        <p>Per month 400$</p>
-                    </div>
-                    <div class="banner_detail">
-                        <div class="banner_textD">
-                            <h3>Intersection of Zhandosov-Alfarabi streets</h3>
-                            <p>City: Almaty</p>
-                            <p>Type: one - sided</p>
-                            <p>Size: 6200x3100 mm</p>
-                        </div>
-                        <div class="banner_btn">
-                            <a href="#">Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="cards_item">
-                    <div class="img_banner">
-                        <img src="/img/banner3.png" alt="#">
-                        <a href="#">Featured</a>
-                        <p>Per month 400$</p>
-                    </div>
-                    <div class="banner_detail">
-                        <div class="banner_textD">
-                            <h3>Intersection of Zhandosov-Alfarabi streets</h3>
-                            <p>City: Almaty</p>
-                            <p>Type: one - sided</p>
-                            <p>Size: 5000x2800 mm</p>
-                        </div>
-                        <div class="banner_btn">
-                            <a href="#">Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="cards_item">
-                    <div class="img_banner">
-                        <img src="/img/banner1.png" alt="#">
-                        <a href="#">Featured</a>
-                        <p>Per month 400$</p>
-                    </div>
-                    <div class="banner_detail">
-                        <div class="banner_textD">
-                            <h3>Intersection of Abay-Sain streets</h3>
-                            <p>City: Almaty</p>
-                            <p>Type: one - sided</p>
-                            <p>Size: 5000x2900 mm</p>
-                        </div>
-                        <div class="banner_btn">
-                            <a href="#">Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="cards_item">
-                    <div class="img_banner">
-                        <img src="/img/banner2.png" alt="#">
-                        <a href="#">Featured</a>
-                        <p>Per month 400$</p>
-                    </div>
-                    <div class="banner_detail">
-                        <div class="banner_textD">
-                            <h3>Intersection of Zhandosov-Alfarabi streets</h3>
-                            <p>City: Almaty</p>
-                            <p>Type: one - sided</p>
-                            <p>Size: 6200x3100 mm</p>
-                        </div>
-                        <div class="banner_btn">
-                            <a href="#">Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="cards_item">
-                    <div class="img_banner">
-                        <img src="/img/banner3.png" alt="#">
-                        <a href="#">Featured</a>
-                        <p>Per month 400$</p>
-                    </div>
-                    <div class="banner_detail">
-                        <div class="banner_textD">
-                            <h3>Intersection of Zhandosov-Alfarabi streets</h3>
-                            <p>City: Almaty</p>
-                            <p>Type: one - sided</p>
-                            <p>Size: 5000x2800 mm</p>
-                        </div>
-                        <div class="banner_btn">
-                            <a href="#">Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="cards_item">
-                    <div class="img_banner">
-                        <img src="/img/banner1.png" alt="#">
-                        <a href="#">Featured</a>
-                        <p>Per month 400$</p>
-                    </div>
-                    <div class="banner_detail">
-                        <div class="banner_textD">
-                            <h3>Intersection of Abay-Sain streets</h3>
-                            <p>City: Almaty</p>
-                            <p>Type: one - sided</p>
-                            <p>Size: 5000x2900 mm</p>
-                        </div>
-                        <div class="banner_btn">
-                            <a href="#">Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="cards_item">
-                    <div class="img_banner">
-                        <img src="/img/banner1.png" alt="#">
-                        <a href="#">Featured</a>
-                        <p>Per month 400$</p>
-                    </div>
-                    <div class="banner_detail">
-                        <div class="banner_textD">
-                            <h3>Intersection of Abay-Sain streets</h3>
-                            <p>City: Almaty</p>
-                            <p>Type: one - sided</p>
-                            <p>Size: 5000x2900 mm</p>
-                        </div>
-                        <div class="banner_btn">
-                            <a href="#">Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="cards_item">
-                    <div class="img_banner">
-                        <img src="/img/banner1.png" alt="#">
-                        <a href="#">Featured</a>
-                        <p>Per month 400$</p>
-                    </div>
-                    <div class="banner_detail">
-                        <div class="banner_textD">
-                            <h3>Intersection of Abay-Sain streets</h3>
-                            <p>City: Almaty</p>
-                            <p>Type: one - sided</p>
-                            <p>Size: 5000x2900 mm</p>
+                            <h3 th:text="${billboard.location}"></h3>
+                            <p th:text="'City: '+ ${billboard.city}"></p>
+                            <p th:text="'Type: '+ ${billboard.type}"></p>
+                            <p th:text="'Size: '+ ${billboard.size}"></p>
                         </div>
                         <div class="banner_btn">
                             <a href="#">Details</a>
@@ -276,7 +116,7 @@
                     </div>
                 </div>
             </div>
-        
+
     </section>
     <section class="about_com" id="about_com">
         <div class="container">

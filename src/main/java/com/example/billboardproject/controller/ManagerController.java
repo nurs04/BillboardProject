@@ -151,7 +151,7 @@ public class ManagerController {
 
     }
 
-    @PreAuthorize("hasAnyAuthority('MANAGER')")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "/getAva/{token}", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getAva(@PathVariable(name = "token", required = false) String token) throws IOException {
         String pictureUrl = loadURL + "default.jpg";
