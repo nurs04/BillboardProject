@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/details.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
+    <title>Details</title>
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <nav class="nav">
+            <h1>Happy Clients</h1>
+            <div class="shops">
+                <div class="enter">
+                    <img src="/img/user.png"
+                         class="user-pic" onclick="toggleMenu()">
+                </div>
+                <div class="sub-menu-wrap" id="subMenu">
+                    <div class="sub-menu">
+                        <div class="uer-info">
+                            <img src="/img/user.png" class="img2">
+                            <h3 th:text="${#authentication.getPrincipal().name} + ' ' + ${#authentication.getPrincipal().surname}"></h3>
+                        </div>
+                        <hr>
+                        <a th:href="@{'/admin/main/'}" class="sub-menu-link" sec:authorize="hasAuthority('MANAGER')">
+                            <i class="fa-solid fa-user"></i>
+                            <p>Admin page</p>
+                            <span>></span>
+                        </a>
+                        <a href="#" class="sub-menu-link" sec:authorize="hasAuthority('USER')">
+                            <i class="fa-solid fa-user"></i>
+                            <p>My profile</p>
+                            <span>></span>
+                        </a>
+                        <a href="#" class="sub-menu-link" sec:authorize="hasAuthority('USER')">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <p>Edit profile</p>
+                            <span>></span>
+                        </a>
+                        <a class="sub-menu-link" href="JavaScript:void(0)"
+                           onclick="singOutForm.submit()">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <p>Log out</p>
+                            <form th:action="@{'/signOut'}" method="post" id="singOutForm"></form>
+                            <span>></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="cart">
+                    <a href="#">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span>Basket</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<section class="bilbo_info">
+    <div class="container">
+        <div class="btn_link">
+            <div class="link">
+                <a th:href="${'/mainPage/'}">Home /</a>
+                <a href="">Details</a>
+            </div>
+        </div>
+        <div class="bilbo_cards">
+            <div class="mapBilbo">
+                <div class="image">
+                    <img th:src="@{'/admin/getAva/' + ${billboard.billboard_url}}" alt="">
+                </div>
+                <div class="map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d726.6435518261171!2d76.89978050944056!3d43.23938995719873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2skz!4v1681543980564!5m2!1sen!2skz"
+                            width="315" height="290" style="border-radius: 10px;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            <div class="cards">
+                <div class="cards_item">
+                    <div class="all-data">
+                        <div class="text">
+                            <div class="text-items">
+                                <div class="text_item">
+                                    <h3>Location:</h3>
+                                    <p th:text="${billboard.location}"></p>
+                                </div>
+                                <div class="text_item">
+                                    <h3>City:</h3>
+                                    <p th:text="${billboard.city}"></p>
+                                </div>
+                                <div class="text_item">
+                                    <h3>Type:</h3>
+                                    <p th:text="${billboard.type}"></p>
+                                </div>
+                                <div class="text_item">
+                                    <h3>Size:</h3>
+                                    <p th:text="${billboard.size}"></p>
+                                </div>
+                                <div class="text_item">
+                                    <h3>Price:</h3>
+                                    <p th:text="${billboard.price} + '$(per month)'"></p>
+                                </div>
+                                <div class="text_item">
+                                    <h3>Lighting:</h3>
+                                    <p th:text="${billboard.isHasLightning == true ? 'Available' : 'Not Available'}"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <p id="justText">Select the required time periods</p>
+                        <div class="order_circles">
+                            <div class="order_first">
+                                <th:block th:each="month : ${#numbers.sequence(1, 6)}">
+                                    <button th:id="'m' + ${month}" th:style="${currentMonth > month ? 'background: grey' : 'background:#1d9243'}" th:disabled="${currentMonth > month}" th:text="${month}"></button>
+                                </th:block>
+                            </div>
+                            <div class="order_second">
+                                <th:block th:each="month : ${#numbers.sequence(7, 12)}">
+                                    <button th:id="'m' + ${month}" th:style="${currentMonth > month ? 'background: grey' : 'background:#1d9243'}" th:disabled="${currentMonth > month}" th:text="${month}"></button>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="calendar">
+                        <div id="header">
+                            <div id="monthDisplay"></div>
+                            <div>
+                                <button id="backButton" hidden>Back</button>
+                                <button id="nextButton" hidden>Next</button>
+                            </div>
+                        </div>
+
+                        <div id="weekdays">
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+                        </div>
+
+                        <div id="calendar"></div>
+                    </div>
+
+                    <div id="newEventModal">
+                        <h2>New Event</h2>
+
+                        <h4 id="eventTitleInput"></h4>
+                        <h4 id="eventTitleInput2"></h4>
+<!--                        <input id="eventTitleInput" placeholder="Event Title"/>-->
+
+                        <button id="saveButton">Save</button>
+                        <button id="cancelButton">Cancel</button>
+                    </div>
+
+                    <div id="deleteEventModal">
+                        <h2>Event</h2>
+
+                        <p id="eventText"></p>
+
+                        <button id="deleteButton">Delete</button>
+                        <button id="closeButton">Close</button>
+                    </div>
+
+                    <div id="modalBackDrop"></div>
+                </div>
+            </div>
+            <!-- <button type="button" class="toBasket">Add to Basket</button> -->
+        </div>
+    </div>
+    </div>
+</section>
+<script>
+    let subMenu = document.getElementById("subMenu");
+
+    function toggleMenu() {
+        subMenu.classList.toggle("open-menu");
+    }
+</script>
+<script>
+    let nav = 0;
+    let clicked = null;
+    let selectedDay;
+    let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : [];
+
+    const calendar = document.getElementById('calendar');
+    const newEventModal = document.getElementById('newEventModal');
+    const deleteEventModal = document.getElementById('deleteEventModal');
+    const backDrop = document.getElementById('modalBackDrop');
+    const eventTitleInput = document.getElementById('eventTitleInput');
+    const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+    function openModal(date) {
+        clicked = date;
+
+        selectedDay = date; // Store the selected day in the variable
+        document.getElementById('eventTitleInput').innerText = `Start Day: ${date}`;
+        const eventDate = new Date();
+        document.getElementById('eventTitleInput2').innerText = `Finished Day: ${eventDate.getDate() + 30}`;
+
+        const eventForDay = events.find(e => e.date === clicked);
+
+        if (eventForDay) {
+            document.getElementById('eventText').innerText = eventForDay.title;
+            deleteEventModal.style.display = 'block';
+        } else {
+            newEventModal.style.display = 'block';
+        }
+
+        backDrop.style.display = 'block';
+    }
+
+    function load() {
+        const dt = new Date();
+
+        if (nav !== 0) {
+            dt.setMonth(new Date().getMonth() + nav);
+        }
+
+        const day = dt.getDate();
+        const month = dt.getMonth();
+        const year = dt.getFullYear();
+
+        const firstDayOfMonth = new Date(year, month, 1);
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        const dateString = firstDayOfMonth.toLocaleDateString('en-us', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+        });
+        const paddingDays = weekdays.indexOf(dateString.split(', ')[0]);
+
+        document.getElementById('monthDisplay').innerText =
+            `${dt.toLocaleDateString('en-us', {month: 'long'})} ${year}`;
+
+        calendar.innerHTML = '';
+
+        for (let i = 1; i <= paddingDays + daysInMonth; i++) {
+            const daySquare = document.createElement('div');
+            daySquare.classList.add('day');
+
+            const dayString = `${month + 1}/${i - paddingDays}/${year}`;
+
+            if (i > paddingDays) {
+                daySquare.innerText = i - paddingDays;
+                const eventForDay = events.find(e => e.date === dayString);
+
+                if (i - paddingDays === day && nav === 0) {
+                    daySquare.id = 'currentDay';
+                }
+
+                if (i - paddingDays < day && nav === 0) {
+                    daySquare.classList.add('pastDay'); // Add class to style past days
+                } else {
+                    daySquare.addEventListener('click', () => openModal(dayString));
+                }
+
+                if (eventForDay) {
+                    const eventDiv = document.createElement('div');
+                    eventDiv.classList.add('event');
+                    eventDiv.innerText = eventForDay.title;
+                    daySquare.appendChild(eventDiv);
+                }
+
+            } else {
+                daySquare.classList.add('padding');
+            }
+
+            calendar.appendChild(daySquare);
+        }
+    }
+
+    function closeModal() {
+        eventTitleInput.classList.remove('error');
+        newEventModal.style.display = 'none';
+        deleteEventModal.style.display = 'none';
+        backDrop.style.display = 'none';
+        eventTitleInput.value = '';
+        clicked = null;
+        load();
+    }
+
+    function saveEvent() {
+        if (eventTitleInput.value) {
+            eventTitleInput.classList.remove('error');
+
+            events.push({
+                date: clicked,
+                title: eventTitleInput.value,
+            });
+
+            localStorage.setItem('events', JSON.stringify(events));
+            closeModal();
+        } else {
+            eventTitleInput.classList.add('error');
+        }
+    }
+
+    function deleteEvent() {
+        events = events.filter(e => e.date !== clicked);
+        localStorage.setItem('events', JSON.stringify(events));
+        closeModal();
+    }
+
+
+    function initButtons() {
+        document.getElementById('nextButton').addEventListener('click', () => {
+            nav++;
+            load();
+        });
+
+        document.getElementById('backButton').addEventListener('click', () => {
+            nav--;
+            load();
+        });
+
+        // Loop through all the buttons and attach a single event listener
+        for (let i = 1; i <= 12; i++) {
+            document.getElementById(`m${i}`).addEventListener('click', () => {
+                const dt = new Date();
+                let m = dt.getMonth();
+                let x = parseInt(m) + 1;
+                nav = i - x;
+                load();
+            });
+        }
+
+        document.getElementById('saveButton').addEventListener('click', saveEvent);
+        document.getElementById('cancelButton').addEventListener('click', closeModal);
+        document.getElementById('deleteButton').addEventListener('click', deleteEvent);
+        document.getElementById('closeButton').addEventListener('click', closeModal);
+    }
+
+    initButtons();
+    load();
+</script>
+</body>
+</html>

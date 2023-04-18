@@ -1,0 +1,524 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(255, 250, 233, 1);
+    position: relative;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+    color: #000;
+}
+
+div, p, input, header, a, form {
+	box-sizing: border-box;
+}
+
+ul, li {
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+p {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    padding: 20px 0 40px;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.shops {
+    display: flex;
+    align-items: center;
+}
+
+.enter {
+    margin-right: 15px;
+}
+
+.nav h1 {
+    color: #AC2F07;
+    width: 10%;
+    text-align: center;
+}
+
+.cart {
+    font-weight: 800;
+}
+
+.sub-menu {
+    background: #fff;
+    padding: 20px;
+    margin: 10px;
+}
+
+.uer-info {
+    display: flex;
+    align-items: center;
+}
+
+.uer-info h3 {
+    font-size: 18px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.uer-info img {
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.sub-menu hr {
+    border: 0;
+    height: 1px;
+    width: 100%;
+    background: #ccc;
+    margin: 15px 0 10px;
+}
+
+.sub-menu-wrap {
+    position: absolute;
+    top: 84%;
+    right: -8px;
+    width: 260px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+
+.sub-menu-wrap.open-menu {
+    max-height: 400px;
+}
+
+.sub-menu-link {
+    display: flex;
+    align-items: center;
+    color: #525252;
+    margin: 12px 0;
+}
+
+.sub-menu-link p {
+    width: 100%;
+    font-size: 16px;
+}
+
+.sub-menu-link i {
+    margin-right: 10px;
+    width: 18px;
+    background: #e5e5e5;
+    border-radius: 50%;
+    padding: 8px;
+}
+
+.sub-menu-link span {
+    font-size: 22px;
+    transition: transform 0.5s;
+
+}
+
+.sub-menu-link:hover span{
+    transform: translateX(5px);
+}
+
+.sub-menu-link:hover p {
+    font-weight: 600;
+}
+
+
+.sidebar_items {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    justify-content: space-between;
+}
+
+
+.sidebar_items h2{
+    margin-right: 70px;
+    color: #000;
+    width: 290px;
+    font-size: 30px;
+}
+
+.sidebar_items h2 span {
+    color: #F4624B;
+}
+
+
+.bilbo {
+    background: #FFF;
+    padding: 20px 0;
+    border-radius: 30px 0px 0px 30px;
+    margin-left: 12px;
+    width: 308px;
+}
+
+.mapBilbo{
+    display: block;
+    width: 323px;
+    padding-bottom: 20px;
+    margin-right: 20px;
+}
+
+.bilbo a {
+    color: #A52800;
+    margin-left: 60px;
+}
+
+.bilbo_cards {
+    display: flex;
+}
+
+.cards {
+    display: block;
+}
+.cards_item {
+    display: flex;
+    width: 100%;
+    background-color: #FFF;
+    padding: 30px 50px;
+    margin-bottom: 20px;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    border-radius: 11px;
+    height: 76%;
+    justify-content: space-between;
+
+}
+.day + .pastDay {
+    color: white;
+    background-color: #7B2E1C;
+}
+
+.day + .pastDay:hover {
+    background-color: #7B2E1C;
+}
+
+.image {
+    width: 320px;
+}
+
+.image img {
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+}
+
+.text {
+    display: flex;
+    justify-content: space-between;
+}
+
+.text_item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.text_item:last-child {
+    margin-bottom: 20px;
+}
+
+.text_item h3 {
+    width:  120px;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.text_item h3:nth-child(6n) {
+    margin-bottom: 0;
+}
+.text_item p {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.text_item p:nth-child(6n) {
+    margin-bottom: 0;
+}
+
+.id {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.id h3 {
+    margin-right: 10px;
+}
+
+
+.order_circles button {
+    width: 40px;
+    height: 40px;
+    font-weight: 800;
+    border-radius: 100%;
+    border: none;
+}
+
+
+.order_first button {
+    margin-right: 3px;
+    margin-bottom: 10px;
+    background: #4BD4FF;
+}
+
+.order_first button:nth-child(6n) {
+    margin-right: 0;
+}
+
+.order_second button {
+    margin-right: 3px;
+    background: #FF5959;
+}
+
+.order_second button:nth-child(6n) {
+    margin-right: 0;
+}
+
+.order_second {
+    margin-bottom: 23px;
+}
+.btn {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.btn .detail button{
+    width: 150px;
+    padding: 6px;
+    border-radius: 10px;
+    background: #A52800;
+    color: #FFF;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.btn .delete button {
+    width: 100px;
+    padding: 6px;
+    border-radius: 10px;
+    background: #525252;
+    color: #FFF;
+    cursor: pointer;
+}
+
+.boxed {
+    display: flex;
+}
+
+
+.btn_link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+
+.link a {
+    font-weight: 400;
+}
+
+.link a:last-child{
+    font-weight: 600;
+}
+
+#justText{
+    margin-bottom: 10px;
+}
+
+.toBasket{
+    display: block;
+    background: #AC2F07;
+    border: 1px solid #000000;
+    border-radius: 20px;
+    color: #fff;
+    padding: 10px;
+    width: 175px;
+    margin: 0 auto;
+    margin-top: 50px;
+    border: none;
+}
+
+
+.calendar-container {
+    width: 400px;
+    margin: auto;
+    border: 1px solid #ccc;
+    font-family: Arial, sans-serif;
+  }
+  
+  .month {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #eee;
+    padding: 10px;
+  }
+  
+  .days-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px;
+  }
+  
+  .day {
+    width: calc(100% / 7);
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+  
+  .booked {
+    background-color: #ffcccb;
+  }
+  
+  .selected {
+    background-color: #4169e1;
+    color: #fff;
+  }
+  
+  .disabled {
+    color: #ccc;
+    cursor: not-allowed;
+  }
+
+
+  #header {
+    color: #d36c6c;
+    font-size: 26px;
+    font-family: sans-serif;
+    text-align: end;
+  }
+  #header button {
+    background-color:#92a1d1;
+  }
+  #container {
+    width: 770px;
+  }
+  #weekdays {
+    width: 100%;
+    display: flex;
+    color: #247BA0;
+  }
+  #weekdays div {
+    width: 44px;
+    padding: 6px;
+  }
+
+  .calendar {
+    width: 41%;
+    display: block;
+  }
+  #calendar {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;   
+  }
+  .day {
+    width: 34px;
+    padding: 5px;
+    height: 40px;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin: 5px;
+    box-shadow: 0px 0px 3px #CBD4C2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .day:hover {
+    background-color: #e8faed;
+  }
+  
+  .day + #currentDay {
+    background-color:#e8f4fa;
+  }
+  .event {
+    font-size: 10px;
+    padding: 3px;
+    background-color: #58bae4;
+    color: white;
+    border-radius: 5px;
+    max-height: 55px;
+    overflow: hidden;
+  }
+  .padding {
+    cursor: default !important;
+    background-color: #FFFCFF !important;
+    box-shadow: none !important;
+  }
+  #newEventModal, #deleteEventModal {
+    display: none;
+    z-index: 20;
+    padding: 25px;
+    background-color: #e8f4fa;
+    box-shadow: 0px 0px 3px black;
+    border-radius: 5px;
+    width: 350px;
+    top: 100px;
+    left: calc(50% - 175px);
+    position: absolute;
+    font-family: sans-serif;
+  }
+  #eventTitleInput {
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 0px 3px gray;
+  }
+  #eventTitleInput.error {
+    border: 2px solid red;
+  }
+  #cancelButton, #deleteButton {
+    background-color: #d36c6c;
+  }
+  #saveButton, #closeButton {
+    background-color: #92a1d1;
+  }
+  #eventText {
+    font-size: 14px;
+  }
+  #modalBackDrop {
+    display: none;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: rgba(0,0,0,0.8);
+  }

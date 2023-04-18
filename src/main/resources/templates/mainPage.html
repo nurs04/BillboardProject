@@ -111,7 +111,7 @@
                             <p th:text="'Size: '+ ${billboard.size}"></p>
                         </div>
                         <div class="banner_btn">
-                            <a href="#">Details</a>
+                            <a th:href="@{'/detailBillboard/'+${billboard.id}}">Details</a>
                         </div>
                     </div>
                 </div>
