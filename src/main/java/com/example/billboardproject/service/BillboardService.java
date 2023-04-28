@@ -12,6 +12,6 @@ public interface BillboardService {
     Billboard addBillboard(Billboard billboard);
     Billboard updateBillboard(Billboard billboard);
 
-    Billboard getBillboard(Long id);
+    Billboard getBillboardById(Long id);
     void deleteBillboard(Long id);
 }

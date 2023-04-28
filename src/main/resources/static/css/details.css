@@ -7,14 +7,14 @@ body{
 }
 
 h1, h2, h3, h4, h5, h6 {
-	margin: 0;
-	padding: 0;
-	font-weight: bold;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
     color: #000;
 }
 
 div, p, input, header, a, form {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 ul, li {
@@ -24,8 +24,8 @@ ul, li {
 }
 
 p {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 a {
@@ -198,23 +198,14 @@ a {
 .cards_item {
     display: flex;
     width: 100%;
-    background-color: #FFF;
     padding: 30px 50px;
     margin-bottom: 20px;
     background: #FFFFFF;
     border: 1px solid #000000;
     border-radius: 11px;
-    height: 76%;
+    height: 80%;
     justify-content: space-between;
 
-}
-.day + .pastDay {
-    color: white;
-    background-color: #7B2E1C;
-}
-
-.day + .pastDay:hover {
-    background-color: #7B2E1C;
 }
 
 .image {
@@ -223,7 +214,7 @@ a {
 
 .image img {
     width: 100%;
-    height: 250px;
+    height: 240px;
     border-radius: 10px;
 }
 
@@ -371,23 +362,23 @@ a {
     margin: auto;
     border: 1px solid #ccc;
     font-family: Arial, sans-serif;
-  }
-  
-  .month {
+}
+
+.month {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #eee;
     padding: 10px;
-  }
-  
-  .days-container {
+}
+
+.days-container {
     display: flex;
     flex-wrap: wrap;
     margin: 10px;
-  }
-  
-  .day {
+}
+
+.day {
     width: calc(100% / 7);
     height: 60px;
     display: flex;
@@ -396,74 +387,77 @@ a {
     border: 1px solid #ccc;
     box-sizing: border-box;
     cursor: pointer;
-  }
-  
-  .booked {
+}
+
+.booked {
     background-color: #ffcccb;
-  }
-  
-  .selected {
+}
+
+.selected {
     background-color: #4169e1;
     color: #fff;
-  }
-  
-  .disabled {
+}
+
+.disabled {
     color: #ccc;
     cursor: not-allowed;
-  }
+}
 
 
-  #header {
+#header {
     color: #d36c6c;
     font-size: 26px;
     font-family: sans-serif;
     text-align: end;
-  }
-  #header button {
+}
+#header button {
     background-color:#92a1d1;
-  }
-  #container {
+}
+#container {
     width: 770px;
-  }
-  #weekdays {
+}
+#weekdays {
     width: 100%;
     display: flex;
     color: #247BA0;
-  }
-  #weekdays div {
-    width: 44px;
-    padding: 6px;
-  }
+    justify-content: end;
+}
+#weekdays div {
+    width: 50px;
+    padding: 10px;
+}
 
-  .calendar {
-    width: 41%;
+.calendar {
+    width: 50%;
     display: block;
-  }
-  #calendar {
+}
+#calendar {
     width: 100%;
     display: flex;
-    flex-wrap: wrap;   
-  }
-  .day {
-    width: 34px;
+    flex-wrap: wrap;
+    justify-content: end;
+}
+.day {
+    width: 40px;
     padding: 5px;
     height: 40px;
     cursor: pointer;
     box-sizing: border-box;
+    background-color: white;
     margin: 5px;
     box-shadow: 0px 0px 3px #CBD4C2;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-  }
-  .day:hover {
+}
+.day:hover {
     background-color: #e8faed;
-  }
-  
-  .day + #currentDay {
+}
+
+.day + #currentDay {
     background-color:#e8f4fa;
-  }
-  .event {
+}
+.event {
     font-size: 10px;
     padding: 3px;
     background-color: #58bae4;
@@ -471,48 +465,49 @@ a {
     border-radius: 5px;
     max-height: 55px;
     overflow: hidden;
-  }
-  .padding {
+}
+.padding {
     cursor: default !important;
     background-color: #FFFCFF !important;
     box-shadow: none !important;
-  }
-  #newEventModal, #deleteEventModal {
+}
+#newEventModal, #deleteEventModal {
     display: none;
     z-index: 20;
-    padding: 25px;
-    background-color: #e8f4fa;
+    padding: 50px 54px;
+    background-color: #FFF0DB;
     box-shadow: 0px 0px 3px black;
-    border-radius: 5px;
-    width: 350px;
-    top: 100px;
-    left: calc(50% - 175px);
+    border: 1px solid #000000;
+    border-radius: 10px;
+    width: 460px;
     position: absolute;
     font-family: sans-serif;
-  }
-  #eventTitleInput {
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
-    margin-bottom: 25px;
-    border-radius: 3px;
-    outline: none;
-    border: none;
-    box-shadow: 0px 0px 3px gray;
-  }
-  #eventTitleInput.error {
+    text-align: center;
+    margin: -88px auto;
+}
+/* #eventTitleInput {
+padding: 10px;
+width: 100%;
+box-sizing: border-box;
+margin-bottom: 25px;
+border-radius: 3px;
+outline: none;
+border: none;
+box-shadow: 0px 0px 3px gray;
+} */
+#eventTitleInput.error {
     border: 2px solid red;
-  }
-  #cancelButton, #deleteButton {
-    background-color: #d36c6c;
-  }
-  #saveButton, #closeButton {
-    background-color: #92a1d1;
-  }
-  #eventText {
+}
+#cancelButton, #deleteButton {
+    background-color: #D70000;
+}
+#saveButton, #closeButton {
+    background-color: #4D49FF;
+}
+#eventText {
     font-size: 14px;
-  }
-  #modalBackDrop {
+}
+#modalBackDrop {
     display: none;
     top: 0px;
     left: 0px;
@@ -521,4 +516,207 @@ a {
     height: 100vh;
     position: absolute;
     background-color: rgba(0,0,0,0.8);
-  }
+}
+
+.inputs {
+    display: block;
+    text-align: center;
+}
+
+#newEventModal h2 {
+    margin-bottom: 20px;
+}
+
+.inputs input{
+    width: 350px;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.inputs input:nth-child(2n){
+    margin-bottom: 20px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.buttons button {
+    margin-right: 10px;
+    width: 115px;
+    padding: 10px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.day + .pastDay {
+    color: white;
+    background-color: #525351;
+}
+
+
+.day + .pastDay:hover {
+    background-color: #525351;
+}
+
+.start p {
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.end p {
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.start input {
+    width: 350px;
+    padding: 15px 10px 15px 10px;
+    border-radius: 10px;
+    border: none;
+    background: #fff;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.end {
+    margin-bottom: 30px;
+}
+
+.end input {
+    width: 350px;
+    padding: 15px 10px 15px 10px;
+    border-radius: 10px;
+    border: none;
+    background: #fff;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.start {
+    margin-bottom: 15px;
+}
+
+.save-cancel button {
+    display: flex;
+    border: none;
+    width: 132px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    justify-content: center;
+    color: #ffff;
+    font-weight: 600;
+    margin-right: 15px;
+}
+
+.green{
+    color: green;
+}
+
+.save-cancel button:nth-child(2){
+    margin-left: 15px;
+}
+
+.save-cancel {
+    display: flex;
+    border-radius: 10px;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.tel input{
+    width: 350px;
+    padding: 10px;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    border-radius: 10px;
+}
+
+.tel {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+
+.tel p{
+    font-size: 16px;
+    text-align: left;
+}
+
+.tel p:nth-child(2) {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/*Modal window*/
+#myModal {
+    width: 320px;
+    height: 185px;
+    padding: 45px 9px;
+    border-radius: 4px;
+    background: #FFFCDE;
+    font-size: 30px;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    margin: auto;
+    display: none;
+    opacity: 0;
+    z-index: 38;
+    text-align: center;
+}
+
+#myModal #myModal__close {
+    width: 21px; height: 21px;
+    position: absolute;
+    font-size: 29px;
+    top: 1px; right: 11px;
+    cursor: pointer;
+    display: block;
+}
+
+#myOverlay {
+    z-index: 37;
+    position: fixed;
+    background: rgba(0,0,0,.7);
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+    cursor: pointer;
+    display: none;
+}
+
+#myModal h3 {
+    font-size: 22px;
+    padding-bottom: 26px;
+}
+
+#myModal button {
+    width: 130px;
+    padding: 10px;
+    border-radius: 10px;
+    background: #A52800;
+    color: #FFF;
+    margin-right: 15px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#myModal button:nth-child(2n){
+    background: #6b6b6b;
+    margin-right: 0;
+}
+
+.modal_btn p{
+    font-size: 18px;
+}

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/basket.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
+    <title>My Basket</title>
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <nav class="nav">
+            <h1>Happy Clients</h1>
+            <div class="shops">
+                <div class="enter">
+                    <img src="/img/user.png" class="user-pic" onclick="toggleMenu()">
+                </div>
+                <div class="sub-menu-wrap" id="subMenu">
+                    <div class="sub-menu">
+                        <div class="uer-info">
+                            <img src="/img/user.png" class="img2">
+                            <h3 th:text="${#authentication.getPrincipal().name} + ' ' + ${#authentication.getPrincipal().surname}"></h3>
+                        </div>
+                        <hr>
+                        <a th:href="@{'/admin/main/'}" class="sub-menu-link" sec:authorize="hasAuthority('MANAGER')">
+                            <i class="fa-solid fa-user"></i>
+                            <p>Admin page</p>
+                            <span>></span>
+                        </a>
+                        <a href="#" class="sub-menu-link" sec:authorize="hasAuthority('USER')">
+                            <i class="fa-solid fa-user"></i>
+                            <p>My profile</p>
+                            <span>></span>
+                        </a>
+                        <a href="#" class="sub-menu-link" sec:authorize="hasAuthority('USER')">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <p>Edit profile</p>
+                            <span>></span>
+                        </a>
+                        <a class="sub-menu-link" href="JavaScript:void(0)"
+                           onclick="singOutForm.submit()">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <p>Log out</p>
+                            <form th:action="@{'/signOut'}" method="post" id="singOutForm"></form>
+                            <span>></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="cart">
+                    <a th:href="${'/basket/'}">
+                        <span>My Orders</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<section class="basket_info">
+    <div class="container">
+        <div class="basket-items">
+            <div class="btn_link">
+                <div class="link">
+                    <a th:href="${'/mainPage/'}">Home /</a>
+                    <a href="">My Orders</a>
+                </div>
+            </div>
+            <h3>My Orders</h3>
+
+            <div class="cards">
+                <div class="items">
+                    <div class="cards_item" th:each="order : ${orders}">
+                        <div class="image">
+                            <img th:src="@{'/admin/getAva/' + ${order.billboard.billboard_url}}" alt="">
+                        </div>
+                        <div class="text">
+                            <div class="text_item">
+                                <h3>Location:</h3>
+                                <p th:text="${order.billboard.location}"></p>
+                            </div>
+                            <div class="text_item">
+                                <h3>City:</h3>
+                                <p th:text="${order.billboard.city}"></p>
+                            </div>
+                            <div class="text_item">
+                                <h3>Type:</h3>
+                                <p th:text="${order.billboard.type}"></p>
+                            </div>
+                            <div class="text_item">
+                                <h3>Size:</h3>
+                                <p th:text="${order.billboard.size}"></p>
+                            </div>
+                            <div class="text_item">
+                                <h3>Price:</h3>
+                                <p th:text="${order.billboard.price} + '$(per month)'"></p>
+                            </div>
+                            <div class="text_item">
+                                <h3>Lighting:</h3>
+                                <p th:text="${order.billboard.isHasLightning}?'Available':'Not Available'"></p>
+                            </div>
+                        </div>
+                        <div class="circle">
+                            <div class="order_circles">
+                                <div class="calendar-allItem">
+                                    <div class="calendar">
+                                        <div class="calendar-text">
+                                            <p th:text="${order.startDate} + '  -  '"></p>
+                                            <p th:text="${order.endDate}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cancel">
+                                    <div class="info">
+                                        <div class="id_card">
+                                            <h3>Price:</h3>
+                                            <span th:text="${order.billboard.price} + '$'"></span>
+                                        </div>
+                                        <div class="total" th:switch="${order.status}">
+                                            <h3>Order status:</h3>
+                                            <span th:case="0" style="color: #0024A2">Waiting</span>
+                                            <span th:case="1" style="color: #1a8a12">Accepted</span>
+                                            <span th:case="2" style="color: #7B2E1C">Rejected</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="trash" style="text-align: end; padding-top: 20px;">
+                                <button type="button"><img src="/img/trash-can.png" alt="trash"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div id="myModal">
+    <h3>Thanks!</h3>
+    <div class="modal_btn">
+        <p>Your application has been sent and is being processed</p>
+    </div>
+    <span id="myModal__close" class="close">ₓ</span>
+</div>
+<div id="myOverlay"></div>
+<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+<script>
+    let subMenu = document.getElementById("subMenu");
+
+    function toggleMenu() {
+        subMenu.classList.toggle("open-menu");
+    }
+</script>
+<script>
+    //   $('.submit').click( function(event){
+    //   event.preventDefault();
+    //   $('#myOverlay').fadeIn(297,  function(){
+    //     $('#myModal')
+    //     .css('display', 'block')
+    //     .animate({opacity: 1}, 198);
+    //   });
+    // });
+    //
+    // $('#myModal__close, #myOverlay').click( function(){
+    //   $('#myModal').animate({opacity: 0}, 198, function(){
+    //     $(this).css('display', 'none');
+    //     $('#myOverlay').fadeOut(297);
+    //   });
+    // });
+    // $('#close, #myOverlay').click( function(){
+    //   $('#myModal').animate({opacity: 0}, 198, function(){
+    //     $(this).css('display', 'none');
+    //     $('#myOverlay').fadeOut(297);
+    //   });
+    // });
+</script>
+</body>
+</html>

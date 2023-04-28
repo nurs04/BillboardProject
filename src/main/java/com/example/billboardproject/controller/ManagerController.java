@@ -44,7 +44,7 @@ public class ManagerController {
     @GetMapping(value = "/detailEditBillboard/{billboard_id}")
     public String detailEditBillboardPage(Model model,
                                           @PathVariable(name = "billboard_id") Long id) {
-        Billboard billboard = billboardService.getBillboard(id);
+        Billboard billboard = billboardService.getBillboardById(id);
         if (billboard != null) {
             model.addAttribute("billboard", billboard);
         }
@@ -73,7 +73,7 @@ public class ManagerController {
     @PreAuthorize("hasAnyAuthority('MANAGER')")
     @PostMapping(value = "/deleteBillboard")
     public String deleteBillboard(@RequestParam(name = "deleteBillboardId") Long deleteBillboardId) {
-        Billboard billboard = billboardService.getBillboard(deleteBillboardId);
+        Billboard billboard = billboardService.getBillboardById(deleteBillboardId);
         if (billboard.isActive()) {
             billboard.setActive(false);
         }
@@ -85,7 +85,7 @@ public class ManagerController {
     @PreAuthorize("hasAnyAuthority('MANAGER')")
     @PostMapping(value = "/recoverBillboard")
     public String recoverBillboard(@RequestParam(name = "recoverBillboardId") Long recoverBillboardId) {
-        Billboard billboard = billboardService.getBillboard(recoverBillboardId);
+        Billboard billboard = billboardService.getBillboardById(recoverBillboardId);
         if (!billboard.isActive()) {
             billboard.setActive(true);
         }
@@ -103,7 +103,7 @@ public class ManagerController {
                                @RequestParam(name = "billboard_url") MultipartFile file) {
         String city = "Almaty";
         String type = "one-sided";
-        Billboard billboard = billboardService.getBillboard(id);
+        Billboard billboard = billboardService.getBillboardById(id);
         billboard.setCity(city);
         billboard.setPrice(price);
         billboard.setType(type);
@@ -156,8 +156,8 @@ public class ManagerController {
     public @ResponseBody byte[] getAva(@PathVariable(name = "token", required = false) String token) throws IOException {
         String pictureUrl = loadURL + "default.jpg";
         if(token != null) {
-//           pictureUrl = loadURL + token + ".jpg";
-            pictureUrl = loadURL + token;
+           pictureUrl = loadURL + token + ".jpg";
+//            pictureUrl = loadURL + token;
         }
         InputStream in;
 

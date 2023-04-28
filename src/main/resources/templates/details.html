@@ -51,9 +51,8 @@
                     </div>
                 </div>
                 <div class="cart">
-                    <a href="#">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <span>Basket</span>
+                    <a th:href="${'/basket/'}">
+                        <span>My Orders</span>
                     </a>
                 </div>
             </div>
@@ -114,12 +113,16 @@
                         <div class="order_circles">
                             <div class="order_first">
                                 <th:block th:each="month : ${#numbers.sequence(1, 6)}">
-                                    <button th:id="'m' + ${month}" th:style="${currentMonth > month ? 'background: grey' : 'background:#1d9243'}" th:disabled="${currentMonth > month}" th:text="${month}"></button>
+                                    <button th:id="'m' + ${month}"
+                                            th:style="${currentMonth > month ? 'background: grey' : 'background:#1d9243'}"
+                                            th:disabled="${currentMonth > month}" th:text="${month}"></button>
                                 </th:block>
                             </div>
                             <div class="order_second">
                                 <th:block th:each="month : ${#numbers.sequence(7, 12)}">
-                                    <button th:id="'m' + ${month}" th:style="${currentMonth > month ? 'background: grey' : 'background:#1d9243'}" th:disabled="${currentMonth > month}" th:text="${month}"></button>
+                                    <button th:id="'m' + ${month}"
+                                            th:style="${currentMonth > month ? 'background: grey' : 'background:#1d9243'}"
+                                            th:disabled="${currentMonth > month}" th:text="${month}"></button>
                                 </th:block>
                             </div>
                         </div>
@@ -147,14 +150,37 @@
                     </div>
 
                     <div id="newEventModal">
-                        <h2>New Event</h2>
+                        <form th:action="@{'/order/orderBillboard'}" method="post">
+                            <h2>New Event</h2>
+                            <input type="hidden" name="billboardId" th:value="${billboard.id}"/>
 
-                        <h4 id="eventTitleInput"></h4>
-                        <h4 id="eventTitleInput2"></h4>
-<!--                        <input id="eventTitleInput" placeholder="Event Title"/>-->
+                            <div class="start">
+                                <p>Start Date:</p>
+                                <input type="text" id="eventTitleInput" name="startDate" value="" readonly/>
+                            </div>
+                            <div class="end">
+                                <p>End Date:</p>
+                                <input type="text" id="eventTitleInput2" name="endDate" value="" readonly/>
+                            </div>
 
-                        <button id="saveButton">Save</button>
-                        <button id="cancelButton">Cancel</button>
+                            <div class="end" style="margin-bottom: 20px">
+                                <p th:text="'Price: '+ ${billboard.price} + '$(per month)'" style="color: green"></p>
+                            </div>
+
+                            <div class="tel">
+                                <p>Please leave your phone number</p>
+                                <p>(In order for our managers to be able to contact you)</p>
+                                <input type="tel" id="phone" name="phone"
+                                       pattern="[8]{1}-[0-7]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
+                                       placeholder="8-727-777-77-77" required>
+                            </div>
+
+                            <div class="save-cancel">
+                                <button type="submit" id="saveButton">Order</button>
+                                <button type="button" id="cancelButton">Cancel</button>
+                            </div>
+                            <!--                        <p class="green">Successfully added to basket</p>-->
+                        </form>
                     </div>
 
                     <div id="deleteEventModal">
@@ -174,6 +200,41 @@
     </div>
     </div>
 </section>
+<div id="myModal">
+    <h3>Thanks!</h3>
+    <div class="modal_btn">
+        <p>Successfully added to basket! Go to basket for rather operations!</p>
+    </div>
+    <span id="myModal__close" class="close">ₓ</span>
+</div>
+
+<div id="myOverlay"></div>
+<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        if (window.location.search.includes('successful')) {
+            $('#myOverlay').fadeIn(297, function() {
+                $('#myModal')
+                    .css('display', 'block')
+                    .animate({opacity: 1}, 198);
+            });
+        }
+    });
+
+    $('#myModal__close, #myOverlay').click( function(){
+        $('#myModal').animate({opacity: 0}, 198, function(){
+            $(this).css('display', 'none');
+            $('#myOverlay').fadeOut(297);
+        });
+    });
+    $('#close, #myOverlay').click( function(){
+        $('#myModal').animate({opacity: 0}, 198, function(){
+            $(this).css('display', 'none');
+            $('#myOverlay').fadeOut(297);
+        });
+    });
+</script>
 <script>
     let subMenu = document.getElementById("subMenu");
 
@@ -198,9 +259,14 @@
         clicked = date;
 
         selectedDay = date; // Store the selected day in the variable
-        document.getElementById('eventTitleInput').innerText = `Start Day: ${date}`;
-        const eventDate = new Date();
-        document.getElementById('eventTitleInput2').innerText = `Finished Day: ${eventDate.getDate() + 30}`;
+        let eventDate = Date.parse(date);
+        const startDate = document.getElementById('eventTitleInput');
+        const endDate = document.getElementById('eventTitleInput2');
+        startDate.value = `${date}`;
+        // document.getElementById('eventTitleInput').value = `${date}`;
+        let finishTime = new Date(eventDate + 30 * 24 * 60 * 60 * 1000);
+        endDate.value = `${finishTime.toLocaleDateString("ja-JP")}`;
+        // document.getElementById('eventTitleInput2').value = `${finishTime.toLocaleDateString("ja-JP")}`;
 
         const eventForDay = events.find(e => e.date === clicked);
 
@@ -245,10 +311,10 @@
             const daySquare = document.createElement('div');
             daySquare.classList.add('day');
 
-            const dayString = `${month + 1}/${i - paddingDays}/${year}`;
+            const dayString = `${year}/${month + 1}/${i - paddingDays}`;
 
             if (i > paddingDays) {
-                daySquare.innerText = i - paddingDays;
+    Ащг            daySquare.innerText = i - paddingDays;
                 const eventForDay = events.find(e => e.date === dayString);
 
                 if (i - paddingDays === day && nav === 0) {
@@ -331,7 +397,7 @@
             });
         }
 
-        document.getElementById('saveButton').addEventListener('click', saveEvent);
+        // document.getElementById('saveButton').addEventListener('click', saveEvent);
         document.getElementById('cancelButton').addEventListener('click', closeModal);
         document.getElementById('deleteButton').addEventListener('click', deleteEvent);
         document.getElementById('closeButton').addEventListener('click', closeModal);
