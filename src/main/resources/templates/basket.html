@@ -30,12 +30,7 @@
                             <p>Admin page</p>
                             <span>></span>
                         </a>
-                        <a href="#" class="sub-menu-link" sec:authorize="hasAuthority('USER')">
-                            <i class="fa-solid fa-user"></i>
-                            <p>My profile</p>
-                            <span>></span>
-                        </a>
-                        <a href="#" class="sub-menu-link" sec:authorize="hasAuthority('USER')">
+                        <a th:href="@{'/editOrViewProfile/'}" class="sub-menu-link">
                             <i class="fa-solid fa-pen-to-square"></i>
                             <p>Edit profile</p>
                             <span>></span>
@@ -71,7 +66,10 @@
 
             <div class="cards">
                 <div class="items">
-                    <div class="cards_item" th:each="order : ${orders}">
+                    <div class="wrapper" th:if="${#lists.isEmpty(orders)}">
+                        <p>You have not ordered yet</p>
+                    </div>
+                    <div class="cards_item" th:if="${not #lists.isEmpty(orders)}" th:each="order : ${orders}">
                         <div class="image">
                             <img th:src="@{'/admin/getAva/' + ${order.billboard.billboard_url}}" alt="">
                         </div>
@@ -121,13 +119,13 @@
                                             <h3>Order status:</h3>
                                             <span th:case="0" style="color: #0024A2">Waiting</span>
                                             <span th:case="1" style="color: #1a8a12">Accepted</span>
-                                            <span th:case="2" style="color: #7B2E1C">Rejected</span>
+                                            <span th:case="2" style="color: red">Rejected</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="trash" style="text-align: end; padding-top: 20px;">
-                                <button type="button"><img src="/img/trash-can.png" alt="trash"></button>
+                                <button type="button" class="trashButton"><img src="/img/trash-can.png" alt="trash"></button>
                             </div>
                         </div>
                     </div>
@@ -137,9 +135,10 @@
     </div>
 </section>
 <div id="myModal">
-    <h3>Thanks!</h3>
+    <h3>Oops!</h3>
     <div class="modal_btn">
-        <p>Your application has been sent and is being processed</p>
+        <p style="color: #7B2E1C">To cancel or delete an order you need to call the manager!</p>
+        <p style="margin-top: 10px; font-weight: 500">Manager phone number: +7(727)987-65-43</p>
     </div>
     <span id="myModal__close" class="close">ₓ</span>
 </div>
@@ -153,27 +152,27 @@
     }
 </script>
 <script>
-    //   $('.submit').click( function(event){
-    //   event.preventDefault();
-    //   $('#myOverlay').fadeIn(297,  function(){
-    //     $('#myModal')
-    //     .css('display', 'block')
-    //     .animate({opacity: 1}, 198);
-    //   });
-    // });
-    //
-    // $('#myModal__close, #myOverlay').click( function(){
-    //   $('#myModal').animate({opacity: 0}, 198, function(){
-    //     $(this).css('display', 'none');
-    //     $('#myOverlay').fadeOut(297);
-    //   });
-    // });
-    // $('#close, #myOverlay').click( function(){
-    //   $('#myModal').animate({opacity: 0}, 198, function(){
-    //     $(this).css('display', 'none');
-    //     $('#myOverlay').fadeOut(297);
-    //   });
-    // });
+      $('.trashButton').click( function(event){
+      event.preventDefault();
+      $('#myOverlay').fadeIn(297,  function(){
+        $('#myModal')
+        .css('display', 'block')
+        .animate({opacity: 1}, 198);
+      });
+    });
+
+    $('#myModal__close, #myOverlay').click( function(){
+      $('#myModal').animate({opacity: 0}, 198, function(){
+        $(this).css('display', 'none');
+        $('#myOverlay').fadeOut(297);
+      });
+    });
+    $('#close, #myOverlay').click( function(){
+      $('#myModal').animate({opacity: 0}, 198, function(){
+        $(this).css('display', 'none');
+        $('#myOverlay').fadeOut(297);
+      });
+    });
 </script>
 </body>
 </html>

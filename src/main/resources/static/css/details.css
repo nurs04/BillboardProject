@@ -203,9 +203,7 @@ a {
     background: #FFFFFF;
     border: 1px solid #000000;
     border-radius: 11px;
-    height: 80%;
     justify-content: space-between;
-
 }
 
 .image {
@@ -214,7 +212,7 @@ a {
 
 .image img {
     width: 100%;
-    height: 240px;
+    height: 268px;
     border-radius: 10px;
 }
 
@@ -662,9 +660,9 @@ box-shadow: 0px 0px 3px gray;
 
 /*Modal window*/
 #myModal {
-    width: 320px;
-    height: 185px;
-    padding: 45px 9px;
+    width: 340px;
+    height: 230px;
+    padding: 52px 9px;
     border-radius: 4px;
     background: #FFFCDE;
     font-size: 30px;
@@ -719,4 +717,75 @@ box-shadow: 0px 0px 3px gray;
 
 .modal_btn p{
     font-size: 18px;
+}
+
+.countPeriods {
+    display: block;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.info-month button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #000000;
+    margin-right: 10px;
+}
+
+.grey {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.grey button {
+    background: grey;
+}
+
+.blue {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.blue button {
+    background: #1d9243;
+}
+
+.red {
+    display: flex;
+    align-items: center;
+}
+
+.red button {
+    background: #d95914;
+}
+
+
+.date {
+    display: flex;
+    align-items: center;
+    background: #A52800;
+    margin-bottom: 10px;
+    width: 250px;
+    justify-content: center;
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 0;
+    border-radius: 21px;
+    font-size: 15px;
+}
+
+.ordered-days h4 {
+    font-size: 17px;
+    margin-top: 18px;
+    margin-bottom: 10px;
+}
+
+.text-circles{
+    margin-right: 7px;
+}
+
+.ordered-days {
+    display: block;
+    margin-left: 34px;
 }

@@ -19,7 +19,7 @@
                 <a th:href="@{'/admin/main/'}">Dashboard</a>
             </li>
             <li class="custom">
-                <a>Customers</a>
+                <a th:href="@{'/admin/incomingOrders/'}">Incoming Orders</a>
             </li>
             <li class="bilbo">
                 <a th:href="@{'/admin/allBillboards/'}">All Billboards</a>
@@ -49,6 +49,11 @@
                         <a th:href="@{'/mainPage/'}" class="sub-menu-link" sec:authorize="hasAuthority('MANAGER')">
                             <i class="fa-solid fa-user"></i>
                             <p>Home Page</p>
+                            <span>></span>
+                        </a>
+                        <a th:href="@{'/editOrViewProfile/'}" class="sub-menu-link">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <p>Edit profile</p>
                             <span>></span>
                         </a>
                         <a class="sub-menu-link" href="JavaScript:void(0)"
@@ -136,23 +141,9 @@
                             <a class="detail" th:href="@{'/admin/detailEditBillboard/'+${billboard.id}}">
                                 <button>Details&Editing</button>
                             </a>
-<!--                            <div class="delete">-->
-<!--                                <input type="hidden" id="inputField1" name="deleteBillboardId" th:value="${billboard.id}">-->
-<!--                                <button id="submitButton" type="submit">Delete</button>-->
-<!--                            </div>-->
                         </div>
                     </div>
                 </div>
-<!--                <div id="myModal">-->
-<!--                    <h3>Are you sure delete?</h3>-->
-<!--                    <div class="modal_btn" id="outputDiv">-->
-<!--                        <form th:action="@{'/admin/deleteBillboard'}" method="post">-->
-<!--                            <input type="hidden" id="inputField2" name="deleteBillboardId">-->
-<!--                            <button type="submit" id="changeValueButton" style="background: #A52800; margin-right: 15px">Yes</button>-->
-<!--                        </form>-->
-<!--                        <button type="submit" id="close">No</button>-->
-<!--                    </div>-->
-<!--                </div>-->
             </div>
         </div>
         <div class="recover" th:hidden="${#lists.isEmpty(notActiveBillboards)}">

@@ -19,7 +19,7 @@
                 <div class="sidebar_nav">
                     <ul class="nav">
                         <li class="homepage">
-                            <a href="mainPage.html" class="homepage_a">
+                            <a href="" class="homepage_a">
                                 Home
                             </a>
                         </li>
@@ -55,12 +55,7 @@
                                     <p>Admin page</p>
                                     <span>></span>
                                 </a>
-                                <a href="#" class="sub-menu-link" sec:authorize="hasAuthority('USER')">
-                                    <i class="fa-solid fa-user"></i>
-                                    <p>My profile</p>
-                                    <span>></span>
-                                </a>
-                                <a href="#" class="sub-menu-link"  sec:authorize="hasAuthority('USER')">
+                                <a th:href="@{'/editOrViewProfile/'}" class="sub-menu-link">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     <p>Edit profile</p>
                                     <span>></span>

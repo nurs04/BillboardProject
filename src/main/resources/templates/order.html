@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/order.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
+    <title>Order Page</title>
+</head>
+<body>
+<section class="left_menu">
+    <div class="left_menu_items">
+        <h1>Happy Clients</h1>
+        <ul class="list">
+            <li class="dash">
+                <a th:href="@{'/admin/main/'}">Dashboard</a>
+            </li>
+            <li class="custom">
+                <a href="">Incoming Orders</a>
+            </li>
+            <li class="bilbo">
+                <a th:href="@{'/admin/allBillboards/'}">All Billboards</a>
+            </li>
+            <li class="new_bilbo">
+                <a th:href="@{'/admin/addNewBillboard/'}">Post New Billboard</a>
+            </li>
+        </ul>
+    </div>
+</section>
+<header class="sidebar">
+    <div class="container">
+        <div class="sidebar_items">
+            <div class="enter">
+                <img src="/img/user.png" class="user-pic" onclick="toggleMenu()">
+            </div>
+            <div class="name">
+                <p th:text="${#authentication.getPrincipal().name} + ' ' + ${#authentication.getPrincipal().surname}"></p>
+                <p>Super Admin</p>
+            </div>
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                    <div class="uer-info">
+                        <img src="/img/user.png" class="img2">
+                        <h3 th:text="${#authentication.getPrincipal().name} + ' ' + ${#authentication.getPrincipal().surname}"></h3>
+                    </div>
+                    <hr>
+                    <a th:href="@{'/mainPage/'}" class="sub-menu-link" sec:authorize="hasAuthority('MANAGER')">
+                        <i class="fa-solid fa-user"></i>
+                        <p>Home Page</p>
+                        <span>></span>
+                    </a>
+                    <a th:href="@{'/editOrViewProfile/'}" class="sub-menu-link">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <p>Edit profile</p>
+                        <span>></span>
+                    </a>
+                    <a class="sub-menu-link" href="JavaScript:void(0)"
+                       onclick="singOutForm.submit()">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <p>Log out</p>
+                        <form th:action="@{'/signOut'}" method="post" id="singOutForm"></form>
+                        <span>></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section class="orders">
+    <div class="container">
+        <div class="order_items" th:each="billboard : ${billboards}">
+            <table class="main_table">
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Description of the billboard</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${billboard.id}"></td>
+                    <td>
+                        <div class="cards_item">
+                            <div class="image">
+                                <img th:src="@{'/admin/getAva/' + ${billboard.billboard_url}}" alt="">
+                            </div>
+                            <div class="text">
+                                <div class="text_item">
+                                    <h3>Location:</h3>
+                                    <p th:text="${billboard.location}"></p>
+                                </div>
+                                <div class="text_item">
+                                    <h3>City:</h3>
+                                    <p th:text="${billboard.city}"></p>
+                                </div>
+                                <div class="text_item">
+                                    <h3>Type:</h3>
+                                    <p th:text="${billboard.type}"></p>
+                                </div>
+                                <div class="text_item">
+                                    <h3>Size:</h3>
+                                    <p th:text="${billboard.size}"></p>
+                                </div>
+                                <div class="text_item">
+                                    <h3>Price:</h3>
+                                    <p th:text="${billboard.price} + '$(per month)'"></p>
+                                </div>
+                                <div class="text_item">
+                                    <h3>Lighting:</h3>
+                                    <p th:text="${billboard.isHasLightning}?'Available':'Not Available'"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+                <thead class="description">
+                <tr>
+                    <th></th>
+                    <th>Customers who have applied for this billboard</th>
+                </tr>
+                </thead>
+            </table>
+            <table class="sheet">
+                <div class="card_info">
+                    <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Client Name</th>
+                        <th>Last Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Phone Number</th>
+                        <th>Status</th>
+                        <th>Decision</th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="order : ${orders}">
+                    <tr th:hidden="${order.billboard.id != billboard.id}">
+                        <td th:text="${order.id}"></td>
+                        <td th:text="${order.user.surname}"></td>
+                        <td th:text="${order.user.name}"></td>
+                        <td th:text="${order.startDate}"></td>
+                        <td th:text="${order.endDate}"></td>
+                        <td th:text="${order.telNumber}"></td>
+                        <td th:switch="${order.status}">
+                            <span th:case="0" style="color: #0024A2">Waiting</span>
+                            <span th:case="1" style="color: #1a8a12">Accepted</span>
+                            <span th:case="2" style="color: red">Rejected</span>
+                        </td>
+                        <td>
+                            <div class="btns">
+                                <form th:action="@{'/admin/changeStatus'}" method="post">
+                                    <input type="hidden" name="orderId" th:value="${order.id}">
+                                    <button type="submit" class="approve" th:hidden="${order.status == 1}">✓</button>
+                                </form>
+                                <form th:action="@{'/admin/refuseOrder'}" method="post">
+                                    <input type="hidden" name="refuseOrderId" th:value="${order.id}">
+                                    <button class="reject" th:hidden="${order.status == 2}">X</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </div>
+            </table>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+<!--<script>-->
+
+<!--    $('.reject').click(function (event) {-->
+<!--        event.preventDefault();-->
+<!--        $('#myOverlay').fadeIn(297, function () {-->
+<!--            $('#myModal')-->
+<!--                .css('display', 'block')-->
+<!--                .animate({opacity: 1}, 198);-->
+<!--        });-->
+<!--    });-->
+
+<!--    $('#myModal__close, #myOverlay').click(function () {-->
+<!--        $('#myModal').animate({opacity: 0}, 198, function () {-->
+<!--            $(this).css('display', 'none');-->
+<!--            $('#myOverlay').fadeOut(297);-->
+<!--        });-->
+<!--    });-->
+<!--    $('#close, #myOverlay').click(function () {-->
+<!--        $('#myModal').animate({opacity: 0}, 198, function () {-->
+<!--            $(this).css('display', 'none');-->
+<!--            $('#myOverlay').fadeOut(297);-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+<script>
+    let subMenu = document.getElementById("subMenu");
+
+    function toggleMenu() {
+        subMenu.classList.toggle("open-menu");
+    }
+</script>
+</body>
+</html>

@@ -22,6 +22,11 @@ public class User extends BaseEntity implements UserDetails {
     private String surname;
     private String email;
     private String password;
+    private String gender;
+    private String city;
+    private String address;
+    private String phone;
+    private String birthday;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 

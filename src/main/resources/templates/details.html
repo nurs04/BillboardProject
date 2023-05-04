@@ -31,12 +31,7 @@
                             <p>Admin page</p>
                             <span>></span>
                         </a>
-                        <a href="#" class="sub-menu-link" sec:authorize="hasAuthority('USER')">
-                            <i class="fa-solid fa-user"></i>
-                            <p>My profile</p>
-                            <span>></span>
-                        </a>
-                        <a href="#" class="sub-menu-link" sec:authorize="hasAuthority('USER')">
+                        <a th:href="@{'/editOrViewProfile/'}" class="sub-menu-link">
                             <i class="fa-solid fa-pen-to-square"></i>
                             <p>Edit profile</p>
                             <span>></span>
@@ -114,16 +109,33 @@
                             <div class="order_first">
                                 <th:block th:each="month : ${#numbers.sequence(1, 6)}">
                                     <button th:id="'m' + ${month}"
-                                            th:style="${currentMonth > month ? 'background: grey' : 'background:#1d9243'}"
+                                            th:style="${currentMonth > month ? 'background: grey' : (orderedMonths.contains(month) ? 'background: #d95914' : 'background:#1d9243')}"
                                             th:disabled="${currentMonth > month}" th:text="${month}"></button>
                                 </th:block>
                             </div>
                             <div class="order_second">
                                 <th:block th:each="month : ${#numbers.sequence(7, 12)}">
                                     <button th:id="'m' + ${month}"
-                                            th:style="${currentMonth > month ? 'background: grey' : 'background:#1d9243'}"
+                                            th:style="${currentMonth > month ? 'background: grey' : (orderedMonths.contains(month) ? 'background: #d95914' : 'background:#1d9243')}"
                                             th:disabled="${currentMonth > month}" th:text="${month}"></button>
                                 </th:block>
+                            </div>
+                            <div class="countPeriods">
+                                <div class="info-month">
+                                    <div class="grey">
+                                        <button></button>
+                                        <p> - Past months</p>
+                                    </div>
+
+                                    <div class="blue">
+                                        <button></button>
+                                        <p> - Free periods of the month</p>
+                                    </div>
+                                    <div class="red">
+                                        <button></button>
+                                        <p> - Has busy periods of the month</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -147,6 +159,16 @@
                         </div>
 
                         <div id="calendar"></div>
+                        <div class="ordered-days">
+                            <h4>The ordered days of this billboard:</h4>
+                            <div th:if="${#lists.isEmpty(billboardOrders)}">
+                                <p>Have not ordered yet</p>
+                            </div>
+                            <div class="date" th:if="${not #lists.isEmpty(billboardOrders)}" th:each="order : ${billboardOrders}">
+                                <p th:text="${order.startDate} + '  -  '"></p>
+                                <p th:text="${order.endDate}"></p>
+                            </div>
+                        </div>
                     </div>
 
                     <div id="newEventModal">
@@ -203,7 +225,7 @@
 <div id="myModal">
     <h3>Thanks!</h3>
     <div class="modal_btn">
-        <p>Successfully added to basket! Go to basket for rather operations!</p>
+        <p>Successfully ordered! We are starting to work your order! To further actions wait the Manager call!</p>
     </div>
     <span id="myModal__close" class="close">ₓ</span>
 </div>
@@ -314,7 +336,7 @@
             const dayString = `${year}/${month + 1}/${i - paddingDays}`;
 
             if (i > paddingDays) {
-    Ащг            daySquare.innerText = i - paddingDays;
+                daySquare.innerText = i - paddingDays;
                 const eventForDay = events.find(e => e.date === dayString);
 
                 if (i - paddingDays === day && nav === 0) {
@@ -324,6 +346,7 @@
                 if (i - paddingDays < day && nav === 0) {
                     daySquare.classList.add('pastDay'); // Add class to style past days
                 } else {
+
                     daySquare.addEventListener('click', () => openModal(dayString));
                 }
 

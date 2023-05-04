@@ -12,4 +12,8 @@ import java.util.List;
 @Transactional
 public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findOrdersByUser_Id(Long id);
+
+    List<Order> findOrdersByBillboard_Id(Long id);
+
+    List<Order> findAll();
 }

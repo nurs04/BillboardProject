@@ -1,8 +1,11 @@
 package com.example.billboardproject.controller;
 
 import com.example.billboardproject.model.Billboard;
+import com.example.billboardproject.model.Order;
 import com.example.billboardproject.service.BillboardService;
 import com.example.billboardproject.service.FileUploadService;
+import com.example.billboardproject.service.OrderService;
+import com.example.billboardproject.service.impl.UserServiceImpl;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +32,12 @@ public class ManagerController {
     private String loadURL;
 
     @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private UserServiceImpl userService;
+
+    @Autowired
     private BillboardService billboardService;
 
     @Autowired
@@ -36,8 +45,20 @@ public class ManagerController {
 
     @PreAuthorize("hasAnyAuthority('MANAGER')")
     @GetMapping(value = "/main")
-    public String adminPage() {
+    public String adminPage(Model model) {
+        model.addAttribute("income", orderService.sumOfIncome());
+        model.addAttribute("waitingOrders", orderService.getAllWaitingOrders());
+        model.addAttribute("activeOrders", orderService.getAllActiveOrders());
+        model.addAttribute("inActiveOrders", orderService.getAllInactiveOrders());
         return "manager";
+    }
+
+    @PreAuthorize("hasAnyAuthority('MANAGER')")
+    @GetMapping(value = "/incomingOrders")
+    public String incomingOrdersPage(Model model) {
+        model.addAttribute("billboards", billboardService.getAllActiveBillboards());
+        model.addAttribute("orders", orderService.getAllOrders());
+        return "order";
     }
 
     @PreAuthorize("hasAnyAuthority('MANAGER')")
@@ -94,13 +115,35 @@ public class ManagerController {
     }
 
     @PreAuthorize("hasAnyAuthority('MANAGER')")
+    @PostMapping(value = "/changeStatus")
+    public String changeStatusOfOrder(@RequestParam(name = "orderId") Long orderId) {
+        Order changingStatus = orderService.getOrderById(orderId);
+        if (changingStatus != null) {
+            changingStatus.setStatus(1);
+            orderService.editOrder(changingStatus);
+        }
+        return "redirect:/admin/incomingOrders/";
+    }
+
+    @PreAuthorize("hasAnyAuthority('MANAGER')")
+    @PostMapping(value = "/refuseOrder")
+    public String refuseOrder(@RequestParam(name = "refuseOrderId") Long refuseOrderId) {
+        Order changingStatus = orderService.getOrderById(refuseOrderId);
+        if (changingStatus != null) {
+            changingStatus.setStatus(2);
+            orderService.editOrder(changingStatus);
+        }
+        return "redirect:/admin/incomingOrders/";
+    }
+
+    @PreAuthorize("hasAnyAuthority('MANAGER')")
     @PostMapping(value = "/editBillboard")
     public String editBillboard(@RequestParam(name = "id") Long id,
-                               @RequestParam(name = "location") String location,
-                               @RequestParam(name = "size") String size,
-                               @RequestParam(name = "isHasLightning") boolean isHasLightning,
-                               @RequestParam(name = "price") double price,
-                               @RequestParam(name = "billboard_url") MultipartFile file) {
+                                @RequestParam(name = "location") String location,
+                                @RequestParam(name = "size") String size,
+                                @RequestParam(name = "isHasLightning") boolean isHasLightning,
+                                @RequestParam(name = "price") double price,
+                                @RequestParam(name = "billboard_url") MultipartFile file) {
         String city = "Almaty";
         String type = "one-sided";
         Billboard billboard = billboardService.getBillboardById(id);
@@ -155,16 +198,16 @@ public class ManagerController {
     @GetMapping(value = "/getAva/{token}", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getAva(@PathVariable(name = "token", required = false) String token) throws IOException {
         String pictureUrl = loadURL + "default.jpg";
-        if(token != null) {
-           pictureUrl = loadURL + token + ".jpg";
+        if (token != null) {
+            pictureUrl = loadURL + token + ".jpg";
 //            pictureUrl = loadURL + token;
         }
         InputStream in;
 
-        try{
+        try {
             ClassPathResource resource = new ClassPathResource(pictureUrl);
             in = resource.getInputStream();
-        }catch (Exception e) {
+        } catch (Exception e) {
             pictureUrl = loadURL + "default.jpg";
             ClassPathResource resource = new ClassPathResource(pictureUrl);
             in = resource.getInputStream();
